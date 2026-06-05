@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaimTak | ब्लॉग्स आणि ताज्या बातम्या</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tiro+Devanagari+Marathi:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #00BFFF;
+  --blue-dark: #0099DD;
+  --black: #080808;
+  --off-white: #f2ede6;
+  --muted: #7a7268;
+  --border: rgba(255,255,255,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--black);
+  color: var(--off-white);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.nav-brand-text { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; }
+.nav-brand-text span { color: #f03030; } /* 'Tak' चा लाल रंग तसाच */
+
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: #f2ede6; text-decoration: none; font-size: 16px; font-weight: 500; }
+.nav-links a:hover { color: var(--blue); }
+
+/* LANGUAGE BAR */
+.lang-bar {
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  background: rgba(8,8,8,0.97);
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+.lang-btn {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #9a9288;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lang-btn.active {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+  background: rgba(0,191,255,0.06);
+}
+
+/* ── BLOGS SECTION ── */
+.blogs-container {
+  max-width: 1100px;
+  margin: 160px auto 60px;
+  padding: 0 24px;
+}
+.page-title {
+  font-family: 'Tiro Devanagari Marathi', serif;
+  font-size: 36px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--blue);
+  padding-left: 15px;
+}
+
+/* CARD LAYOUT */
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+.blog-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.blog-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue);
+}
+.blog-img { width: 100%; height: 200px; object-fit: cover; background: #222; }
+.blog-content { padding: 24px; }
+.blog-date { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.blog-title { font-size: 20px; color: #fff; margin-bottom: 12px; line-height: 1.4; }
+.blog-desc { font-size: 14px; color: #b0a898; line-height: 1.6; margin-bottom: 20px; }
+.read-more-btn { color: var(--blue); font-weight: 700; font-size: 14px; display: inline-block; }
+
+/* ── MODAL WINDOW FOR FULL ARTICLE ── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 200;
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal.open { display: flex; }
+.modal-content {
+  background: #111;
+  border: 1px solid var(--border);
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: none; color: #fff;
+  width: 35px; height: 35px;
+  border-radius: 50%; cursor: pointer;
+  font-size: 18px;
+}
+.modal-body { line-height: 1.8; color: #c0b9b0; font-size: 16px; }
+.modal-body h2 { color: #fff; margin: 20px 0 10px; font-size: 22px; }
+.modal-body p { margin-bottom: 16px; }
+
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 14px; }
+  .lang-bar { top: 60px; }
+  .blogs-container { margin-top: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-brand-text">Claim<span>Tak</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">होम (Home)</a>
+    <a href="blogs.html" style="color: var(--blue);">ब्लॉग्स (Blogs)</a>
+  </div>
+</nav>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="changeLang('mr')" id="btn-mr">मराठी</button>
+  <button class="lang-btn" onclick="changeLang('hi')" id="btn-hi">हिंदी</button>
+  <button class="lang-btn" onclick="changeLang('en')" id="btn-en">English</button>
+</div>
+
+<!-- BLOGS CONTAINER -->
+<div class="blogs-container">
+  <h1 class="page-title" id="page-heading">ताज्या बातम्या आणि लेख</h1>
+  
+  <div class="blogs-grid" id="blogs-grid-container">
+    <!-- ब्लॉग कार्ड्स JavaScript द्वारे लोड होतील -->
+  </div>
+</div>
+
+<!-- FULL ARTICLE MODAL -->
+<div class="modal" id="articleModal" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-article-body" class="modal-body">
+      <!-- पूर्ण लेख इथे दिसेल -->
+    </div>
+  </div>
+</div>
+
+<script>
+// HARDCODED DATA (मराठी, हिंदी, इंग्रजी भाषांसह)
+const blogData = {
+  mr: {
+    heading: "ताज्या बातम्या आणि लेख",
+    readMore: "पूर्ण वाचा →",
+    articles: [
+      {
+        id: 1,
+        title: "सावधान! रोबोटिक सर्जरी आणि हेल्थ इन्शुरन्स: क्लेम पास होणार की खिशातून पैसे जाणार?",
+        date: "१ जून २०२६",
+        desc: "आजकाल डॉक्टर रोबोटिक सर्जरीचा सल्ला देतात. पण इन्शुरन्स कंपन्या याचे पूर्ण पैसे देतात का? जाणून घ्या IRDAI चे नियम...",
+        full: `<h2>रोबोटिक सर्जरी आणि हेल्थ इन्शुरन्स कव्हरेज</h2>
+              <p>📅 १ जून २०२६ · नविन पारख, ClaimTak पुणे</p><br>
+              <p>भारतातील विमा नियामक संस्था <strong>IRDAI</strong> च्या नियमांनुसार, कोणतीही इन्शुरन्स कंपनी रोबोटिक सर्जरीला "मॉडर्न ट्रीटमेंट" मानून पूर्णपणे नाकारू शकत नाही. पॉलिसीमध्ये हे कव्हरेज देणे कंपन्यांना बंधनकारक आहे.</p>
+              <h2>अडचण कुठे येते?</h2>
+              <p>अडचण क्लेम देण्यामध्ये नाही, तर कंपन्यांनी लावलेल्या 'सब-लिमिट' (मर्यादा) मध्ये आहे. अनेक कंपन्या रोबोटिक सर्जरीचा खर्च नॉर्मल लॅप्रोस्कोपिक सर्जरीच्या दराशी जोडतात आणि वरचा खर्च नाकारतात.</p>
+              <p><strong>ClaimTak सल्ला:</strong> सर्जरी करण्यापूर्वी हॉस्पिटलकडून पूर्व-मंजुरी (Pre-Auth) घ्या आणि डॉक्टरांकडून 'Medical Necessity' चे पत्र लिहून घ्या.</p>`
+      },
+      {
+        id: 2,
+        title: "पुन्हा एकदा देशाला आर्थिक संकटातून एलआयसी सावरणार का?",
+        date: "२७ मे २०२६",
+        desc: "देशाच्या आर्थिक चढउतारात LIC ची भूमिका नेहमीच महत्त्वाची राहिली आहे. २०२६ च्या आर्थिक बदलांवर एक विशेष विश्लेषण.",
+        full: `<h2>देशाच्या अर्थव्यवस्थेत LIC चे योगदान</h2>
+              <p>📅 २७ मे २०२६ · नविन पारख, ClaimTak पुणे</p><br>
+              <p>जेव्हा जेव्हा शेअर बाजार किंवा देशाच्या अर्थव्यवस्थेवर संकट येते, तेव्हा LIC एक मोठा तारणहार म्हणून समोर येते. सुरक्षित गुंतवणूक आणि खात्रीशीर परतावा यामुळे कोट्यवधी भारतीयांचा विश्वास आजही LIC वर आहे.</p>
+              <p>क्लेम सेटलमेंटच्या बाबतीतही LIC खाजगी कंपन्यांपेक्षा खूप पुढे आहे. ग्राहकांनी आपल्या पॉलिसी चालू ठेवणे का गरजेचे आहे, यावर हे विशेष विश्लेषण आहे.</p>`
+      }
+    ]
+  },
+  hi: {
+    heading: "नवीनतम समाचार और लेख",
+    readMore: "पूरी खबर पढ़ें →",
+    articles: [
+      {
+        id: 1,
+        title: "सावधान! रोबोटिक सर्जरी और हेल्थ इंश्योरेंस: क्लेम पास होगा या जेब से पैसे जाएंगे?",
+        date: "1 जून 2026",
+        desc: "आजकल डॉक्टर रोबोटिक सर्जरी की सलाह देते हैं। लेकिन क्या इंश्योरेंस कंपनियां इसका पूरा पैसा देती हैं? जानिए IRDAI के नियम...",
+        full: `<h2>रोबोटिक सर्जरी और हेल्थ इंश्योरेंस कवरेज</h2>
+              <p>📅 1 जून 2026 · नविन पारख, ClaimTak पुणे</p><br>
+              <p>IRDAI के नियमों के अनुसार, कोई भी इंश्योरेंस कंपनी रोबोटिक सर्जरी को आधुनिक इलाज मानकर पूरी तरह से खारिज नहीं कर सकती है। कंपनियों के लिए पॉलिसी में यह कवरेज देना अनिवार्य है।</p>
+              <h2>समस्या कहां आती है?</h2>
+              <p>समस्या क्लेम देने में नहीं, बल्कि कंपनियों द्वारा लगाई गई 'सब-लिमिट' (सीमा) में है। कई कंपनियां रोबोटिक सर्जरी के खर्च को नॉर्मल लैप्रोस्कोपिक सर्जरी के रेट से जोड़ती हैं और अतिरिक्त खर्च को खारिज कर देती हैं।</p>`
+      },
+      {
+        id: 2,
+        title: "क्या एक बार फिर एलआईसी देश को आर्थिक संकट से उबारेगी?",
+        date: "27 मई 2026",
+        desc: "देश के आर्थिक उतार-चढ़ाव में LIC की भूमिका हमेशा महत्वपूर्ण रही है। 2026 के आर्थिक बदलावों पर एक विशेष विश्लेषण।",
+        full: `<h2>देश की अर्थव्यवस्था में LIC का योगदान</h2>
+              <p>📅 27 मई 2026 · नविन पारख, ClaimTak पुणे</p><br>
+              <p>जब भी शेयर बाजार या देश की अर्थव्यवस्था पर संकट आता है, LIC एक बड़े मददगार के रूप में सामने आती है। सुरक्षित निवेश और सुनिश्चित रिटर्न के कारण करोड़ों भारतीयों का विश्वास आज भी LIC पर है।</p>`
+      }
+    ]
+  },
+  en: {
+    heading: "Latest News & Articles",
+    readMore: "Read Full Article →",
+    articles: [
+      {
+        id: 1,
+        title: "Warning! Robotic Surgery and Health Insurance: Will your claim be approved?",
+        date: "June 1, 2026",
+        desc: "Doctors often recommend robotic surgery nowadays. But do insurance companies cover the full cost? Know the IRDAI rules...",
+        full: `<h2>Robotic Surgery & Health Insurance Coverage</h2>
+              <p>📅 June 1, 2026 · Navin Parakh, ClaimTak Pune</p><br>
+              <p>According to IRDAI rules, no insurance company can completely reject robotic surgery by calling it a modern treatment. It is mandatory for companies to provide this coverage.</p>
+              <h2>Where is the issue?</h2>
+              <p>The issue is not with the approval, but with the 'sub-limits' set by companies. Many companies cap the robotic surgery cost equivalent to standard laparoscopic surgery.</p>`
+      },
+      {
+        id: 2,
+        title: "Will LIC bail out the national economy once again?",
+        date: "May 27, 2026",
+        desc: "LIC's role has always been crucial during financial fluctuations in the country. A special analysis on 2026 financial shifts.",
+        full: `<h2>LIC's Contribution to the National Economy</h2>
+              <p>📅 May 27, 2026 · Navin Parakh, ClaimTak Pune</p><br>
+              <p>Whenever there is a crisis in the stock market or the national economy, LIC emerges as a major savior. Millions of Indians still trust LIC for safe investments and guaranteed returns.</p>`
+      }
+    ]
+  }
+};
+
+let currentLang = 'mr';
+
+// फॅंक्शन: ब्लॉग्स ग्रिड रेंडर करणे
+function renderBlogs() {
+  const container = document.getElementById('blogs-grid-container');
+  const heading = document.getElementById('page-heading');
+  
+  heading.innerText = blogData[currentLang].heading;
+  container.innerHTML = '';
+
+  blogData[currentLang].articles.forEach(article => {
+    const card = document.createElement('div');
+    card.className = 'blog-card';
+    card.onclick = () => openArticle(article.id);
+    
+    card.innerHTML = `
+      <div class="blog-content">
+        <div class="blog-date">\${article.date}</div>
+        <h2 class="blog-title">\${article.title}</h2>
+        <p class="blog-desc">\${article.desc}</p>
+        <span class="read-more-btn">\${blogData[currentLang].readMore}</span>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// फॅंक्शन: भाषा बदलणे
+function changeLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`btn-\${lang}`).classList.add('active');
+  renderBlogs();
+}
+
+// फॅंक्शन: पॉपअप (Modal) ओपन करणे
+function openArticle(id) {
+  const article = blogData[currentLang].articles.find(a => a.id === id);
+  if (article) {
+    document.getElementById('modal-article-body').innerHTML = article.full;
+    document.getElementById('articleModal').classList.add('open');
+  }
+}
+
+// फॅंक्शन: पॉपअप क्लोज करणे
+function closeModal() {
+  document.getElementById('articleModal').classList.remove('open');
+}
+
+function closeModalOutside(e) {
+  if (e.target.id === 'articleModal') {
+    closeModal();
+  }
+}
+
+// सुरुवातीला मराठी ब्लॉग्स लोड करणे
+renderBlogs();
+</script>
+
+</body>
+  </html>
+  
