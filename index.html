@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="ClaimTak — विमा कंपनीने क्लेम नाकारला? नविन पारख, पुणे. 2000+ rejected claims successfully resolved. Health + Life Insurance Claim Assistance.">
-<meta name="keywords" content="rejected insurance claim pune, health insurance claim help, LIC claim rejected, claimtak, navin parakh pune">
-<title>ClaimTak | हर क्लेम में आपके साथ</title>
+<title>ClaimTak | ब्लॉग्स आणि ताज्या बातम्या</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tiro+Devanagari+Marathi:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --red: #00BFFF; /* आकाशी निळा रंग (Sky Blue)[span_0](start_span)[span_0](end_span) */
-  --red-dark: #0099DD; /* गडद आकाशी निळा रंग[span_1](start_span)[span_1](end_span) */
+  --blue: #00BFFF;
+  --blue-dark: #0099DD;
   --black: #080808;
   --off-white: #f2ede6;
   --muted: #7a7268;
@@ -19,29 +17,14 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
 body {
   background: var(--black);
   color: var(--off-white);
   font-family: 'DM Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
-/* ── LOGO SVG inline ── */
-.logo-svg {
-  width: 64px;
-  height: 64px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* ══════════════════════════════
-   NAV
-══════════════════════════════ */
+/* ── NAVBAR ── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -49,83 +32,206 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 16px 48px;
   background: rgba(8,8,8,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
+.nav-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.nav-brand-text { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; }
+.nav-brand-text span { color: #f03030; }
 
-@media (min-width: 1024px) {
-  nav {
-    padding: 16px 48px;
-    gap: 48px;
-  }
-}
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: #f2ede6; text-decoration: none; font-size: 16px; font-weight: 500; }
+.nav-links a:hover { color: var(--blue); }
 
-.nav-brand {
+/* LANGUAGE BAR */
+.lang-bar {
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  z-index: 99;
   display: flex;
-  align-items: center;
-  gap: 16px;
-  text-decoration: none;
-  flex-shrink: 0;
+  justify-content: center;
+  background: rgba(8,8,8,0.97);
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+.lang-btn {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #9a9288;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lang-btn.active {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+  background: rgba(0,191,255,0.06);
 }
 
-.nav-brand-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  color: #fff;
-  letter-spacing: 1px;
-  line-height: 1.1;
+/* ── BLOGS SECTION ── */
+.blogs-container {
+  max-width: 1100px;
+  margin: 160px auto 60px;
+  padding: 0 24px;
 }
-
-@media (min-width: 1024px) {
-  .nav-brand-text {
-    font-size: 26px;
-  }
-}
-
-/* लोगोमधील 'Tak' चा लाल रंग तसाच ठेवला आहे */
-.nav-brand-text span { color: #f03030; } 
-
-.nav-tagline {
+.page-title {
   font-family: 'Tiro Devanagari Marathi', serif;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-  display: block;
-  margin-top: 3px;
+  font-size: 36px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--blue);
+  padding-left: 15px;
 }
 
-@media (min-width: 1024px) {
-  .nav-tagline {
-    font-size: 11px;
-  }
+/* CARD LAYOUT */
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
+.blog-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.blog-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue);
+}
+.blog-content { padding: 24px; }
+.blog-date { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.blog-title { font-size: 20px; color: #fff; margin-bottom: 12px; line-height: 1.4; }
+.blog-desc { font-size: 14px; color: #b0a898; line-height: 1.6; margin-bottom: 20px; }
+.read-more-btn { color: var(--blue); font-weight: 700; font-size: 14px; display: inline-block; }
 
-.nav-cta {
-  display: inline-flex;
+/* ── MODAL WINDOW FOR FULL ARTICLE ── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 200;
+  backdrop-filter: blur(8px);
   align-items: center;
-  gap: 8px;
-  background: var(--red);
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 18px;
-  border-radius: 2px;
-  transition: background 0.2s;
-  flex-shrink: 0;
+  justify-content: center;
+  padding: 20px;
 }
-
-@media (min-width: 1024px) {
-  .nav-cta {
-    font-size: 14px;
-    padding: 12px 24px;
-    gap: 10px;
-  }
+.modal.open { display: flex; }
+.modal-content {
+  background: #111;
+  border: 1px solid var(--border);
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
 }
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: none; color: #fff;
+  width: 35px; height: 35px;
+  border-radius: 50%; cursor: pointer;
+  font-size: 18px;
+}
+.modal-body { line-height: 1.8; color: #c0b9b0; font-size: 16px; }
+.modal-body h2 { color: #fff; margin: 20px 0 10px; font-size: 22px; }
+.modal-body p { margin-bottom: 16px; }
 
-.nav-cta:hover { background: var(--red-dark); }
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 14px; }
+  .lang-bar { top: 60px; }
+  .blogs-container { margin-top: 140px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-brand-text">Claim<span>Tak</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">होम (Home)</a>
+    <a href="blogs.html" style="color: var(--blue);">ब्लॉग्स (Blogs)</a>
+  </div>
+</nav>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="changeLang('mr')" id="btn-mr">मराठी</button>
+  <button class="lang-btn" onclick="changeLang('hi')" id="btn-hi">हिंदी</button>
+  <button class="lang-btn" onclick="changeLang('en')" id="btn-en">English</button>
+</div>
+
+<div class="blogs-container">
+  <h1 class="page-title" id="page-heading">ताज्या बातम्या आणि लेख</h1>
+  
+  <div class="blogs-grid" id="blogs-grid-container">
+    </div>
+</div>
+
+<div class="modal" id="articleModal" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-article-body" class="modal-body">
+      </div>
+  </div>
+</div>
+
+<script>
+const blogData = {
+  mr: {
+    heading: "ताज्या बातम्या आणि लेख",
+    readMore: "पूर्ण वाचा →",
+    articles: [
+      {
+        id: 1,
+        title: "सावधान! रोबोटिक सर्जरी आणि हेल्थ इन्शुरन्स: क्लेम पास होणार की खिशातून पैसे जाणार?",
+        date: "१ जून २०२६",
+        desc: "आजकाल डॉक्टर रोबोटिक सर्जरीचा सल्ला देतात. पण इन्शुरन्स कंपन्या याचे पूर्ण पैसे देतात का? जाणून घ्या IRDAI चे नियम...",
+        full: "<h2>रोबोटिक सर्जरी आणि हेल्थ इन्शुरन्स कव्हरेज</h2><p>📅 १ जून २०२६ · नविन पारख, ClaimTak पुणे</p><br><p>भारतातील विमा नियामक संस्था <strong>IRDAI</strong> च्या नियमांनुसार, कोणतीही इन्शुरन्स कंपनी रोबोटिक सर्जरीला 'मॉडर्न ट्रीटमेंट' मानून पूर्णपणे नाकारू शकत नाही. पॉलिसीमध्ये हे कव्हरेज देणे कंपन्यांना बंधनकारक आहे.</p><h2>अडचण कुठे येते?</h2><p>अडचण क्लेम देण्यामध्ये नाही, तर कंपन्यांनी लावलेल्या 'सब-लिमिट' (मर्यादा) मध्ये आहे. अनेक कंपन्या रोबोटिक सर्जरीचा खर्च नॉर्मल लॅप्रोस्कोपिक सर्जरीच्या दराशी जोडतात आणि वरचा खर्च नाकारतात.</p><p><strong>ClaimTak सल्ला:</strong> सर्जरी करण्यापूर्वी हॉस्पिटलकडून पूर्व-मंजुरी (Pre-Auth) घ्या आणि डॉक्टरांकडून 'Medical Necessity' चे पत्र लिहून घ्या.</p>"
+      },
+      {
+        id: 2,
+        title: "पुन्हा एकदा दे देशाचे आर्थिक संकट एलआयसी सावरणार का?",
+        date: "२७ मे २०२६",
+        desc: "देशाच्या आर्थिक चढउतारात LIC ची भूमिका नेहमीच महत्त्वाची राहिली आहे. २०२६ च्या आर्थिक बदलांवर एक विशेष विश्लेषण.",
+        full: "<h2>देशाच्या अर्थव्यवस्थेत LIC चे योगदान</h2><p>📅 २७ मे २०२६ · नविन पारख, ClaimTak पुणे</p><br><p>जेव्हा जेव्हा शेअर बाजार किंवा देशाच्या अर्थव्यवस्थेवर संकट येते, तेव्हा LIC एक मोठा तारणहार म्हणून समोर येते. सुरक्षित गुंतवणूक आणि खात्रीशीर परतावा यामुळे कोट्यवधी भारतीयांचा विश्वास आजही LIC वर आहे.</p><p>क्लेम सेटलमेंटच्या बाबतीतही LIC खाजगी कंपन्यांपेक्षा खूप पुढे आहे. ग्राहकांनी आपल्या पॉलिसी चालू ठेवणे का गरजेचे आहे, यावर हे विशेष विश्लेषण आहे.</p>"
+      }
+    ]
+  },
+  hi: {
+    heading: "नया और ताज़ा समाचार",
+    readMore: "पूरी खबर पढ़ें →",
+    articles: [
+      {
+        id: 1,
+        title: "सावधान! रोबोटिक सर्जरी और हेल्थ इंश्योरेंस: क्लेम पास होगा या जेब से पैसे जाएंगे?",
+        date: "1 जून 2026",
+        desc: "आजकल डॉक्टर रोबोटिक सर्जरी की सलाह देते हैं। लेकिन क्या इंश्योरेंस कंपनियां इसका पूरा पैसा देती हैं? जानिए IRDAI के नियम...",
+        full: "<h2>रोबोटिक सर्जरी और हेल्थ इंश्योरेंस कवरेज</h2><p>📅 1 जून 2026 · नविन पारख, ClaimTak पुणे</p><br><p>IRDAI के नियमों के अनुसार, कोई भी इंश्योरेंस कंपनी रोबोटिक सर्जरी को आधुनिक इलाज मानकर पूरी तरह से खारिज नहीं कर सकती है। कंपनियों के लिए पॉलिसी में यह कवरेज देना अनिवार्य है।</p><h2>समस्या कहां आती है?</h2><p>समस्या क्लेम देने में नहीं, बल्कि कंपनियों द्वारा लगाई गई 'सब-लिमिट' (सीमा) में है। कई कंपनियां रोबोटिक सर्जरी के खर्च को नॉर्मल लैप्रोस्कोपिक सर्जरी के रेट से जोड़ती हैं और अतिरिक्त खर्च को खारिज कर देती हैं।</p>"
+      },
+      {
+        id: 2,
+        title: "क्या एक बार फिर एलआईसी देश को आर्थिक संकट से उबारेगी?",
+        date: "27 मई 2026",
+        desc: "देश के आर्थिक उतार-चढ़ाव में LIC की भूमिका हमेशा महत्वपूर्ण रही है। 2026 के आर्थिक बदलावों पर एक विशेष विश्लेषण।",
+        full: "<h2>देश की अर्थव्यवस्था में LIC का योगदान</h2><p>📅 27 मई 2026 · नविन पारख, ClaimTak पुणे</p><br><p>जब भी शेयर बाजार या देश की अर्थव्यवस्था पर संकट आता, LIC एक बड़े मददगार के रूप में सामने आती है। सुरक्षित निवेश और सुनिश्चित रिटर्न के कारण करोड़ों भारतीयों का विश्वास आज भी LIC पर है।</p>"
+      }
+    ]
+  },
+  en: {
+    heading: "Latest
 .nav-cta svg { width: 16px; height: 16px; }
 
 @media (min-width: 1024px) {
