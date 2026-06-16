@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ClaimTak Latest News & Articles — Insurance claim analysis, rejected claim guides, and financial literacy.">
+<title>ClaimTak | ताज़ी खबरें और लेख</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tiro+Devanagari+Marathi:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #f03030;
+  --red-dark: #c01e1e;
+  --black: #080808;
+  --off-white: #f2ede6;
+  --muted: #7a7268;
+  --border: rgba(255,255,255,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--off-white);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 1024px) {
+  nav {
+    padding: 16px 48px;
+    gap: 48px;
+  }
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-brand-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+@media (min-width: 1024px) {
+  .nav-brand-text {
+    font-size: 26px;
+  }
+}
+
+.nav-brand-text span { color: var(--red); }
+
+.nav-tagline {
+  font-family: 'Tiro Devanagari Marathi', serif;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  display: block;
+  margin-top: 3px;
+}
+
+@media (min-width: 1024px) {
+  .nav-tagline {
+    font-size: 11px;
+  }
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════
+   MENU OVERLAY
+══════════════════════════════ */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  padding: 40px 24px;
+}
+
+.menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-overlay a {
+  color: var(--off-white);
+  text-decoration: none;
+  font-size: 24px;
+  font-family: 'Tiro Devanagari Marathi', serif;
+  transition: color 0.2s;
+}
+
+.menu-overlay a:hover {
+  color: var(--red);
+}
+
+.menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+/* ══════════════════════════════
+   LANG BAR
+══════════════════════════════ */
+.lang-bar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 98;
+  display: flex;
+  justify-content: center;
+  background: rgba(8,8,8,0.95);
+  border-bottom: 1px solid var(--border);
+  gap: 0;
+  padding: 0;
+}
+
+.lang-btn {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Tiro Devanagari Marathi', serif;
+}
+
+.lang-btn.active {
+  color: var(--off-white);
+  border-bottom-color: var(--red);
+  background: rgba(240,48,48,0.04);
+}
+
+.lang-btn:hover {
+  color: var(--off-white);
+}
+
+/* ══════════════════════════════
+   NEWS SECTION
+══════════════════════════════ */
+.news-wrapper {
+  min-height: 100vh;
+  padding-top: 160px;
+  padding-bottom: 60px;
+  background: var(--black);
+}
+
+.news-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .news-container {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-container {
+    padding: 0 60px;
+  }
+}
+
+.section-label {
+  font-family: 'Tiro Devanagari Marathi', serif;
+  font-size: 13px;
+  color: var(--red);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 6vw, 56px);
+  color: #fff;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+/* NEWS GRID */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.news-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card:hover {
+  border-color: var(--red);
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.04);
+}
+
+.news-card.featured {
+  grid-column: span 1;
+  background: linear-gradient(135deg, rgba(240,48,48,0.1) 0%, rgba(240,48,48,0.04) 100%);
+  border-color: rgba(240,48,48,0.3);
+}
+
+@media (min-width: 768px) {
+  .news-card.featured {
+    grid-column: span 2;
+  }
+}
+
+.news-card.featured:hover {
+  border-color: var(--red);
+  background: linear-gradient(135deg, rgba(240,48,48,0.15) 0%, rgba(240,48,48,0.08) 100%);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  background: rgba(255,255,255,0.02);
+}
+
+.news-card.featured .news-image {
+  height: 280px;
+}
+
+.news-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.news-date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.news-heading {
+  font-family: 'Tiro Devanagari Marathi', serif;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.news-card.featured .news-heading {
+  font-size: 22px;
+}
+
+.news-excerpt {
+  font-size: 14px;
+  color: #b0a898;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  transition: gap 0.2s;
+}
+
+.read-more:hover {
+  gap: 12px;
+}
+
+/* ══════════════════════════════
+   MODAL
+══════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 40px 32px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-box {
+    padding: 24px 20px;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.modal-content {
+  color: #c0b9b0;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.modal-content h2 {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 12px;
+  margin-top: 0;
+  font-family: 'Tiro Devanagari Marathi', serif;
+}
+
+.modal-content h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  font-family: 'Tiro Devanagari Marathi', serif;
+}
+
+.modal-content p {
+  margin-bottom: 16px;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 24px 0;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.modal-content blockquote {
+  background: rgba(240,48,48,0.08);
+  border-left: 4px solid var(--red);
+  padding: 16px 20px;
+  border-radius: 0 4px 4px 0;
+  margin: 20px 0;
+  color: #fff;
+  font-style: italic;
+}
+
+.modal-content strong {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .modal-content h2 {
+    font-size: 22px;
+  }
+  
+  .modal-content h3 {
+    font-size: 18px;
+  }
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  .news-wrapper {
+    padding-top: 140px;
+  }
+  
+  .section-title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+  
+  .news-grid {
+    gap: 24px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div>
+      <div class="nav-brand-text">Claim<span>Tak</span></div>
+      <span class="nav-tagline" data-i18n="nav-tagline">हर क्लेम में आपके साथ</span>
+    </div>
+  </a>
+  <button class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenuOutside(event)">
+  <button class="menu-close" onclick="closeMenu()">✕</button>
+  <a href="index.html" data-i18n="menu-home" onclick="closeMenu()">होम</a>
+  <a href="blogs.html" data-i18n="menu-news" onclick="closeMenu()">ताज़ी खबरें</a>
+  <a href="#form" data-i18n="menu-claim" onclick="closeMenu()">अपना क्लेम बताएं</a>
+  <a href="#contact" data-i18n="menu-contact" onclick="closeMenu()">संपर्क करें</a>
+</div>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" id="lb-mr" onclick="setLang('mr')">मराठी</button>
+  <button class="lang-btn" id="lb-hi" onclick="setLang('hi')">हिंदी</button>
+  <button class="lang-btn" id="lb-en" onclick="setLang('en')">English</button>
+</div>
+
+<!-- NEWS SECTION -->
+<div class="news-wrapper">
+  <div class="news-container">
+    <span class="section-label" data-i18n="news-label">ताज़ी खबरें</span>
+    <h1 class="section-title" data-i18n="news-title">ClaimTak समाचार</h1>
+    
+    <div class="news-grid" id="newsGrid">
+      <!-- News cards will be populated by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="articleModal" onclick="closeArticleOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeArticle()">✕</button>
+    <div class="modal-content" id="articleContent">
+      <!-- Article content will be populated here -->
+    </div>
+  </div>
+</div>
+
+<script>
+const T = {
+  mr: {
+    "nav-tagline": "हर क्लेम में आपके साथ",
+    "menu-home": "होम",
+    "menu-news": "ताज़ी खबरें",
+    "menu-claim": "अपना क्लेम बताएं",
+    "menu-contact": "संपर्क करें",
+    "news-label": "ताज़ी खबरें",
+    "news-title": "ClaimTak समाचार"
+  },
+  hi: {
+    "nav-tagline": "हर क्लेम में आपके साथ",
+    "menu-home": "होम",
+    "menu-news": "ताज़ी खबरें",
+    "menu-claim": "अपना क्लेम बताएं",
+    "menu-contact": "संपर्क करें",
+    "news-label": "ताज़ी खबरें",
+    "news-title": "ClaimTak समाचार"
+  },
+  en: {
+    "nav-tagline": "With You on Every Claim",
+    "menu-home": "Home",
+    "menu-news": "Latest News",
+    "menu-claim": "Tell Your Claim",
+    "menu-contact": "Contact",
+    "news-label": "Latest News",
+    "news-title": "ClaimTak News"
+  }
+};
+
+const newsArticles = {
+  mr: [
+    {
+      id: 1,
+      title: "६० लाख एजंट्सचा धोखा: कॉर्पोरेट लोभ आणि सरकारी उदासीनता",
+      date: "१५ जून २०२६",
+      excerpt: "विमा कंपन्या ६० लाख एजंट्सची व्यवस्थित पिळवणूक करत आहेत. सरकार मौन का आहे? धक्कादायक सत्य आणि एकमेव मार्ग.",
+      image: "insurance-agents-betrayal.png",
+      content: `<img src="insurance-agents-betrayal.png" alt="6 Million Insurance Agents Betrayal" style="width: 100%; border-radius: 8px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1);">
+
+<h2>६० लाख एजंट्सचा धोखा: कॉर्पोरेट लोभ, सरकारी प्रसिद्धी आणि पुढचा मार्ग</h2>
+<p style="color: #999; font-size: 14px;">📅 १५ जून २०२६ · भारतातील विमा एजंट संकटाचे गंभीर विश्लेषण</p>
+
+<p>आयसीआयसीआय लोम्बार्डचा सर्व ₹१० लाख पेक्षा कमी Sum Insured असलेल्या स्वास्थ्य विमा पॉलिसींवर रिन्यूअल कमिशन पूर्णपणे बंद करण्याचा सर्वसत्तावादी निर्देश एक अलगावून घेतलेला कॉर्पोरेट निर्णय नाही. हा एक मोठा, गहन <strong>कॉर्पोरेट लोभ, व्यवस्थागत सरकारी दृष्टीक्षेप आणि नियामक उदासीनतेद्वारे सुलभ केलेला षड्यंत्र</strong> आहे.</p>
+
+<p>भारतातील ६० लाख विमा एजंट्सचा विशाल नेटवर्क व्यवस्थितपणे शोषण केला जात आहे कारण ते संघटित नाहीत.</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>⚠️ मूळ समस्या:</strong> विमा एजंट्स भारतीय विमा क्षेत्राच्या मेरुदंडाचे प्रतिनिधित्व करतात, तरीही त्यांना डिस्पोजेबल मजदूरांप्रमाणे वर्तन केले जाते. कॉर्पोरेट नफ्याला धोका आलेल्या पहिल्या लक्ष्यांमध्ये ते असतात.
+</blockquote>
+
+<h3>मूळ कारण: २०२५ मधील जीएसटी माफीचा परिणाम</h3>
+
+<p>आयसीआयसीआय लोम्बार्डसारख्या विमा दिग्गजांना अचानक आर्थिक शिकारी का दिसायला लागले? आपल्याला २०२५ मधील सरकारच्या धोरण युक्तीकडे पाहिले पाहिजे.</p>
+
+<p>अत्यंत प्रसिद्धीचा उपहार मिळवण्यासाठी, सरकारने विमा प्रीमियमवर जनतेसाठी एक विशाल जीएसटी माफी जाहीर केली. हा निर्णय लोक कल्याणाच्या झेंड्यातून लपवला गेला असला तरी, विमा क्षेत्राच्या ऑपरेशनल अर्थशास्त्राबद्दल पूर्णपणे दुर्लक्ष करून अंमलात आणला गेला.</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>गणित:</strong> जीएसटी माफी ने विमा कंपन्यांना तीव्र आर्थिक संकटात ढकेल दिले, त्यांच्या बॅलन्स शीटवर ¹५%-१८% असा ऑपरेशनल बोझ थोपला. सरकार या धोरणाचे गणितीय प्रभाव पूरेपूर कळत होते, परंतु आर्थिक स्थिरतेपेक्षा आत्मकेंद्रित प्रसिद्धी निवडली.
+</blockquote>
+
+<h3>कॉर्पोरेट बदला आणि कमिशनवर हल्ला</h3>
+
+<p>जीएसटी माफीच्या धक्क्याने कॉर्पोरेट विमा संस्थांनी तातडीने हाशिये परत मिळवण्याचे मार्ग शोधण्यास सुरुवात केली.</p>
+
+<p>त्यांनी पहिल्यांदा एजंट्सच्या कठीण मेहनतीच्या कमिशनवर सरळ १८% जीएसटी लागू करून सरळ हल्ला केला, कार्यत्या <strong>एक संस्थागत लुटणूक</strong> अंमलात आणली. सरकारच्या धोरणाच्या लोकसंख्यात्मक बोझ शोषण करण्याचा हा पहिला टप्पा होता.</p>
+
+<h3>सरकार आणि आयआरडीएआय का मौन आहेत?</h3>
+
+<p>हे विश्वास ठेवणे पूर्णपणे भोळे आहे की सरकार आणि <strong>Insurance Regulatory and Development Authority of India (IRDAI)</strong> या विकासांबद्दल अनभिज्ञ आहेत.</p>
+
+<p>६० लाख व्यक्तींना नोकरी देणारा क्षेत्र संकटाच्या किनार्यावर ढकेलला जात आहे, आणि अधिकारी मूक दर्शक आहेत.</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>कारण:</strong><br>
+✗ कॉर्पोरेट लॉबी संघटित, सुसज्ज आणि धोरण निर्माणाच्या केंद्रात गहरी रुळलेली आहेत<br>
+✗ विमा एजंट्स भौगोलिकदृष्ट्या विखुरलेले आहेत<br>
+✗ या संघटनाच्या अभावाचा वापर कॉर्पोरेट्स आणि नियामकांनी शस्त्र म्हणून केला जातो<br>
+✗ परिणाम: एजंट्सच्या आर्थिक सुरक्षेचे विमोचन होते
+</blockquote>
+
+<h3>व्यवस्थापन मंडळीला खुला आव्हान</h3>
+
+<p><strong>हवेतून भरलेल्या बोर्डरूमात बसलेल्या उच्च-श्रेणी कॉर्पोरेट अधिकाऱ्यांनी जमीनी वास्तविकतेवर उतरून कसे बर्तते हे पाहावे.</strong> त्यांनी मध्यमवर्गीय कुटुंबाला किंवा प्रीमियम लोडिंगचा सामना करत असलेल्या वृद्ध नागरिकांना मूलभूत ₹५ लाख पॉलिसी पिचिंग आणि विक्री करण्याचा प्रयत्न केला पाहिजे.</p>
+
+<p>ही कॉर्पोरेट नियमे अशा व्यक्तींनी तयार केली आहेत जे खुदरा विमा बुक स्थापित करण्यासाठी आवश्यक असलेल्या संघर्षापासून पूर्णपणे विलग आहेत.</p>
+
+<h3>पुढचा मार्ग: आयआरडीएआय बाय करा, सुप्रीम कोर्टात जा</h3>
+
+<p><strong>कंपनी व्यवस्थापनला अपील पाठवून किंवा आयआरडीएआयकडून मदत अपेक्षा करून वेळ वाया घालवणे एक व्यर्थ व्यायाम आहे.</strong></p>
+
+<p>इतिहास हे सिद्ध करतो की नियामक संस्था अनेकदा कामगार वर्गाच्या कामगारांऐवजी मोठ्या कॉर्पोरेट समूहांचे हित प्रतिबिंबित करतात.</p>
+
+<p>जर भारतातील ६० लाख एजंट्स या अहंकारी कॉर्पोरेट दिग्गजांना वास्तविकतेकडे परत आणायचे आहे, तर त्यांना <strong>कॉर्पोरेट लाल टेपला पूर्णपणे बायपास करावे लागेल</strong>. एकमेवच प्रभावी मार्ग:</p>
+
+<ol style="margin: 16px 0; padding-left: 20px; color: #c0b9b0;">
+  <li>एकीकृत फोरमद्वारे संसाधने एकत्रित करा</li>
+  <li><strong>भारताच्या सुप्रीम कोर्टात व्यापक रिट याचिका दाखल करा</strong></li>
+  <li>मूलभूत जीविका उल्लंघन, सूचित करार भंग आणि अनियंत्रित कॉर्पोरेट शोषणावर केस आधार राखा</li>
+</ol>
+
+<blockquote style="background: rgba(59,130,246,0.1); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>💡 का सुप्रीम कोर्ट?</strong> देशातील सर्वोच्च न्यायालयातून न्यायिक आदेशच कॉर्पोरेट अहंकार तोडेल आणि भारतीय विमा क्षेत्राच्या मेरुदंडास न्याय परत आणेल.
+</blockquote>
+
+<h3>निष्कर्ष</h3>
+
+<p><strong>विनम्र विनंत्यांचा काळ संपला. कायदेशीर कारवाईचा काळ येथे आहे.</strong></p>
+
+<p>६० लाख एजंट्स. एक एकीकृत आवाज. सुप्रीम कोर्ट. हीच न्यायाचे एकमेवच मार्ग आहे.</p>`
+    },
+    {
+      id: 2,
+      title: "राजेश एक्सपोर्ट्स प्रकरण: एलआयसी काय 'जादूगार' किंवा 'देव' आहे का?",
+      date: "०६ जून २०२६",
+      excerpt: "सोशल मीडियावरील अफवांचे प्रॅक्टिकल विश्लेषण! एलआयसी बुडाली की हा फक्त क्लिकबेटचा खेळ?",
+      image: "rajesh-exports-poster.png",
+      content: `<h2>राजेश एक्सपोर्ट्स प्रकरण: एलआयसी काय 'जादूगार' किंवा 'देव' आहे का?</h2>
+<p style="color: #999; font-size: 14px;">📅 ०९ जून २०२६ · नविन पारख, ClaimTak पुणे</p>
+
+<h3>गेल्या काही दिवसांपासून सोशल मीडिया आणि काही न्यूज चॅनल्सवर एकच गदारोळ सुरू आहे</h3>
+
+<blockquote>
+"राजेश एक्सपोर्ट्समुळे एलआयसी बुडाली!", "पॉलिसीधारकांचे पैसे गेले!", "एलआयसी लवकरच बंद होणार!"
+</blockquote>
+
+<p>सेबीने (SEBI) राजेश एक्सपोर्ट्स या कंपनीच्या १५.१५ लाख कोटी रुपयांच्या बोगस महसुलाचा (Fake Revenue) पर्दाफाश केल्यानंतर, लोकांनी तातडीने एलआयसीला आरोपीच्या पिंजऱ्यात उभे केले.</p>
+
+<img src="rajesh-exports-poster.png" alt="Rajesh Exports Case Analysis">
+
+<p>पण शांत डोक्याने विचार केला, तर सोशल मीडियावरील हा आरडाओरडा किती फोल आणि अर्धवट ज्ञानावर आधारित आहे, हे समजून येईल.</p>
+
+<h3>मुद्दा क्र. १: केंद्र सरकारला कळायला वर्षे लागली, तिथे एलआयसी काय जादूगार आहे?</h3>
+
+<p>लोकांचा सर्वात मोठा आक्षेप हा आहे की, एलआयसीने अशा कंपनीत गुंतवणूकच का केली? पण आपण एक साधी गोष्ट विसरतो:</p>
+
+<p>भांडवली बाजार नियामक संस्था 'सेबी' (SEBI) आणि केंद्र सरकारकडे देशातील सर्व गुप्तहेर यंत्रणा, कर विभाग (Income Tax) आणि फॉरेन्सिक ऑडिटर्सची फौज असते. कॉर्पोरेट जगतात कंपन्या जेव्हा त्यांचे 'अकाउंटिंग बुक्स' फुगवून दाखवतात, तेव्हा ते इतक्या हुशारीने केले जाते की ते शोधायला सरकारी यंत्रणांना सुद्धा वर्षानुवर्षे तपास करावा लागतो.</p>
+
+<p>एलआयसी ही एक गुंतवणूकदार संस्था आहे, ती कोणतीही गुप्तहेर यंत्रणा नाही. कंपन्यांचे अधिकृत, ऑडिट केलेले रिपोर्ट पाहून जेव्हा देशातील मोठे बँकर्स आणि सरकारलाही सुरुवातीला ही गफलत ओळखता आली नाही, तेव्हा एलआयसीकडे कोणतीही जादूची कांडी नव्हती की त्यांना हे आधीच समजेल.</p>
+
+<p><strong>सत्य असे आहे की, कंपन्यांचे अंतर्गत फसवणुकीचा बळी इतर सामान्य गुंतवणूकदारांसारखीच एलआयसी सुद्धा ठरली आहे.</strong></p>
+
+<h3>मुद्दा क्र. २: एलआयसी 'देव' नाही, तोटा हा व्यवसायाचा भाग आहे!</h3>
+
+<p>शेअर बाजाराचा सर्वात पहिला आणि मूलभूत नियम आहे— <strong>"Risk and Return Go Hand in Hand"</strong> (जिथे परतावा असतो, तिथे जोखीम असतेच).</p>
+
+<p>जर कोणाला वाटत असेल की एलआयसीने शेअर बाजारात लावलेला प्रत्येक रुपया फक्त आणि फक्त नफ्यातच राहिला पाहिजे, तर तो निव्वळ भाबडेपणा आहे.</p>
+
+<blockquote>
+<strong>💡 याचा मुद्दा असा आहे की:</strong><br>
+या एका धक्क्याने एलआयसी तोट्यात गेलेली नाही. तुमची एलआयसीमधील पॉलिसी, तुमचे गुंतवलेले पैसे आणि मिळणारा बोनस सुरक्षित आहेत. अर्धवट माहितीच्या आधारे बोंब मारणाऱ्यांपासून सावध राहा!
+</blockquote>
+
+<p>आर्थिक क्षेत्रातील खऱ्या, प्रॅक्टिकल आणि अचूक विश्लेषणासाठी ClaimTak ला फॉलो करा.</p>`
+    },
+    {
+      id: 2,
+      title: "एलआयसी शेअर विक्री: सरकार १ बिलियन डॉलर उभे करणार — तुमच्या निवेशावर काय परिणाम?",
+      date: "०३ जून २०२६",
+      excerpt: "केंद्र सरकार एलआयसीमधील काही हिस्सा विकणार आहे. पण यामुळे एलआयसी कमजोर होणार नाही!",
+      image: "",
+      content: `<h2>एलआयसी शेअर विक्री: सरकार १ बिलियन डॉलर उभे करणार</h2>
+<p style="color: #999; font-size: 14px;">📅 ०३ जून २०२६ · नविन पारख, ClaimTak पुणे</p>
+<p>भारतीय विमा क्षेत्रातील अग्रगण्य आणि देशातील सर्वात मोठी वित्तीय संस्था असलेली <strong>लाइफ इन्शुरन्स कॉर्पोरेशन ऑफ इंडिया (LIC)</strong> पुन्हा एकदा जोरदार चर्चेत आली आहे.</p>
+<blockquote>
+<strong>📰 बातमी:</strong> केंद्र सरकार जून अखेरीस किंवा जुलै २०२६ च्या सुरुवातीला एलआयसीमधील आपला काही हिस्सा विकण्याची तयारी करत आहे. यामुळे सरकार बाजारातून साधारण <strong>१ बिलियन डॉलर</strong> (अंदाजे ९,००० - १०,००० कोटी रुपये) उभे करणार आहे.
+</blockquote>
+<h3>या बातमीमुळे काय झालं?</h3>
+<p>या बातमीमुळे एलआयसीच्या शेअर्समध्ये <strong>३ ते ४ टक्क्यांची घसरण</strong> झाली. बाजार घाबरून गेला! पण शांत राहा — हे सामान्य बातमी आहे, कोणताही संकट नाही.</p>
+<h3>सरकार नेमका काय विकणार आहे?</h3>
+<p>सूत्रांनुसार, केंद्र सरकार एलआयसीमधील <strong>१.५% ते २% हिस्सा</strong> OFS (Offer For Sale) द्वारे संस्थात्मक गुंतवणूकदारांना विकू शकते.</p>
+<blockquote style="background:rgba(201,149,42,0.1);border-left:4px solid #C9952A;padding:16px;border-radius:4px;margin:16px 0;">
+<strong>📊 हे पहा:</strong><br>
+✅ सरकारचा हिस्सा: <strong>९६.५%</strong><br>
+✅ Public float: <strong>३.५%</strong><br>
+✅ SEBI नियमानुसार किमान <strong>२५% public shareholding</strong> अनिवार्य
+</blockquote>
+<h3>एलआयसी सध्या तुफान फॉर्मात! 💪</h3>
+<p>✅ Q4 FY2026 मध्ये <strong>२३% नफ्यात वाढ</strong><br>
+✅ <strong>१:१ Bonus Shares</strong> (पहिल्यांदाच!)<br>
+✅ <strong>₹१० Final Dividend</strong> प्रति शेअर<br>
+✅ <strong>२३,४२० कोटी</strong> निव्वळ नफा — SBI आणि HDFC पेक्षाही जास्त!</p>`
+    },
+    {
+      id: 3,
+      title: "Insurance Claim सुचारूपणे मिळवा — आमचे प्रमाणित ५ पायरी प्रक्रिया",
+      date: "२० मे २०२६",
+      excerpt: "Claim rejection हा शब्द आपल्या जीवनातून हटून जातो. जाणून घ्या कसे!",
+      image: "",
+      content: `<h2>Insurance Claim सुचारूपणे कसे मिळवा?</h2>
+<p style="color: #999; font-size: 14px;">📅 २० मे २०२६ · नविन पारख, ClaimTak पुणे</p>
+<h3>समस्या: Insurance Claim Rejection</h3>
+<p>भारतात हजारो मानुष असतात जेथे insurance companies reject करतात. पण खरंच <strong>९०% rejected claims लढाई देऊन जिंकता येतात!</strong></p>
+<h3>ClaimTak ची प्रक्रिया:</h3>
+<p>✅ Step 1: मुफत Case Review<br>
+✅ Step 2: Strategy तयार करा<br>
+✅ Step 3: आमच्यावर लडा<br>
+✅ Step 4: Claim दिलवा</p>
+<blockquote style="background:rgba(34,197,94,0.08);border-left:4px solid #22c55e;padding:16px;border-radius:4px;margin:16px 0;">
+<strong>💚 सफल उदाहरण:</strong><br>
+विधवा महिलेचा PMJJBY claim 4 साल धरून ठेवला होता. आमचा लढाई → <strong>महज 4 दिनात ₹2,00,000 मिळाले!</strong>
+</blockquote>
+<p><strong>आज ही सुरुवात करा: WhatsApp +९१-९१५८८५८८८५</strong></p>`
+    }
+  ],
+  hi: [
+    {
+      id: 1,
+      title: "६० लाख एजेंट्स का धोखा: कॉर्पोरेट लालच और सरकारी उदासीनता",
+      date: "१५ जून २०२६",
+      excerpt: "बीमा कंपनियां ६० लाख एजेंट्स का व्यवस्थित शोषण कर रही हैं। सरकार चुप क्यों है? चौंकाने वाली सच्चाई और एकमात्र रास्ता।",
+      image: "insurance-agents-betrayal.png",
+      content: `<img src="insurance-agents-betrayal.png" alt="6 Million Insurance Agents Betrayal" style="width: 100%; border-radius: 8px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1);">
+
+<h2>६० लाख एजेंट्स का धोखा: कॉर्पोरेट लालच, सरकारी विज्ञापन और आगे का रास्ता</h2>
+<p style="color: #999; font-size: 14px;">📅 १५ जून २०२६ · भारत के बीमा एजेंट संकट का गंभीर विश्लेषण</p>
+
+<p>आईसीआईसीआई लोम्बार्ड की हाल की तानाशाही निर्देश जो ₹10 लाख या उससे कम Sum Insured वाली स्वास्थ्य बीमा पॉलिसियों पर नवीकरण कमीशन को पूरी तरह समाप्त करती है, एक अलग कॉर्पोरेट निर्णय नहीं है। यह <strong>कॉर्पोरेट लालच, प्रणालीगत सरकारी अनदेखी और नियामक उदासीनता</strong> का एक बड़ा, गहरा षड्यंत्र है।</p>
+
+<p>भारत के 60 लाख बीमा एजेंट्स का विशाल नेटवर्क व्यवस्थित रूप से शोषित किया जा रहा है क्योंकि वे संगठित नहीं हैं।</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>⚠️ मूल समस्या:</strong> बीमा एजेंट्स भारत के बीमा क्षेत्र की रीढ़ की हड्डी का प्रतिनिधित्व करते हैं, फिर भी उन्हें डिस्पोजेबल मजदूरों की तरह व्यवहार किया जाता है।
+</blockquote>
+
+<h3>मूल कारण: २०२५ में GST छूट की वापसी</h3>
+
+<p>आईसीआईसीआई लोम्बार्ड जैसी बीमा दिग्गज अचानक आर्थिक शिकारी क्यों दिख रही हैं? २०२५ में सरकार की नीति चालों की ओर देखना चाहिए।</p>
+
+<p>अत्यधिक प्रचार का लाभ लेने के लिए, सरकार ने आम जनता के लिए बीमा प्रीमियम पर एक बड़ी GST छूट की घोषणा की। जबकि यह निर्णय सार्वजनिक कल्याण के झंडे में लपेटा गया था, इसे बीमा क्षेत्र के परिचालन अर्थशास्त्र की पूरी अनदेखी के साथ लागू किया गया।</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>गणित:</strong> GST की कमी ने बीमा कंपनियों को गंभीर वित्तीय संकट में डाल दिया, उनकी बैलेंस शीट पर 15% से 18% का परिचालन बोझ डाल दिया। सरकार इस नीति के गणितीय प्रभाव को पूरी तरह जानती थी, लेकिन आर्थिक स्थिरता के बजाय आत्मकेंद्रित प्रचार चुना।
+</blockquote>
+
+<h3>कॉर्पोरेट प्रतिशोध और कमीशन पर हमला</h3>
+
+<p>GST छूट के झटके के बाद, कॉर्पोरेट बीमा संस्थाओं ने तुरंत अपने मार्जिन को वापस लेने के तरीके खोजने शुरू कर दिए।</p>
+
+<p>उन्होंने पहले एजेंट्स की मेहनत के कमीशन पर 18% GST लगाकर सीधा हमला किया, <strong>एक संस्थागत डकैती</strong> को अंजाम दिया। सरकार की नीति का परिचालन बोझ शोषित करना एजेंट्स पर पड़ा।</p>
+
+<h3>सरकार और IRDAI क्यों चुप हैं?</h3>
+
+<p>यह मानना पूरी तरह भोला है कि सरकार और <strong>Insurance Regulatory and Development Authority of India (IRDAI)</strong> इन घटनाओं से अनजान हैं।</p>
+
+<p>60 लाख लोगों को रोजगार देने वाला एक क्षेत्र संकट के कगार पर धकेला जा रहा है, और अधिकारी मूक दर्शक बने हुए हैं।</p>
+
+<h3>कार्यकारी सूट को खुली चुनौती</h3>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>अपने एयर-कंडीशनर वाले बोर्डरूम से उतरकर जमीनी वास्तविकता का सामना करें।</strong> मध्यवर्गीय परिवार या उच्च प्रीमियम लोडिंग का सामना करते बुजुर्गों को ₹5 लाख की बीमा पॉलिसी बेचने की कोशिश करें।
+
+ये कॉर्पोरेट नियम उन लोगों द्वारा बनाए गए हैं जो खुदरा बीमा व्यवसाय स्थापित करने के लिए आवश्यक संघर्ष से पूरी तरह अलग हैं।
+</blockquote>
+
+<h3>आगे का रास्ता: IRDAI को बायपास करें, सुप्रीम कोर्ट जाएं</h3>
+
+<p><strong>कंपनी प्रबंधन को अपील भेजकर या IRDAI से राहत की उम्मीद करके समय बर्बाद करना एक व्यर्थ व्यायाम है।</strong></p>
+
+<p>इतिहास साबित करता है कि नियामक निकाय अक्सर कामकाजी वर्ग की बजाय प्रमुख कॉर्पोरेट समूहों के हितों को प्रतिबिंबित करते हैं।</p>
+
+<p>अगर भारत के 60 लाख एजेंट्स इन अहंकारी कॉर्पोरेट दिग्गजों को वास्तविकता का सामना कराना चाहते हैं, तो उन्हें <strong>कॉर्पोरेट लाल फीता पूरी तरह बायपास करना होगा</strong>। एकमात्र प्रभावी उपाय:</p>
+
+<ol style="margin: 16px 0; padding-left: 20px; color: #c0b9b0;">
+  <li>एकीकृत मंच के माध्यम से संसाधन एकत्र करें</li>
+  <li><strong>भारत के सुप्रीम कोर्ट में एक व्यापक रिट याचिका दाखिल करें</strong></li>
+  <li>बुनियादी आजीविका के उल्लंघन, निहित अनुबंध के उल्लंघन और मनमानी कॉर्पोरेट शोषण के आधार पर मामला बनाएं</li>
+</ol>
+
+<blockquote style="background: rgba(59,130,246,0.1); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>💡 क्यों सुप्रीम कोर्ट?</strong> देश के सर्वोच्च न्यायालय से न्यायिक जनादेश ही कॉर्पोरेट अहंकार को तोड़ेगा और भारत के बीमा क्षेत्र की रीढ़ को न्याय लौटाएगा।
+</blockquote>
+
+<h3>निष्कर्ष</h3>
+
+<p><strong>विनम्र अनुरोधों का समय समाप्त हो गया। कानूनी कार्रवाई का समय अब है।</strong></p>
+
+<p>60 लाख एजेंट्स। एक एकीकृत आवाज। सुप्रीम कोर्ट। यह न्याय का एकमात्र रास्ता है।</p>`
+    },
+    {
+      id: 2,
+      title: "राजेश एक्सपोर्ट्स मामला: क्या LIC 'जादूगर' या 'देवता' है?",
+      date: "०९ जून २०२६",
+      excerpt: "सोशल मीडिया पर फैली अफवाओं का प्रैक्टिकल विश्लेषण! क्या LIC सचमुच डूब गई है?",
+      image: "rajesh-exports-poster.png",
+      content: `<h2>राजेश एक्सपोर्ट्स मामला: क्या LIC 'जादूगर' या 'देवता' है?</h2>
+<p style="color: #999; font-size: 14px;">सोशल मीडिया पर फैली अफवाओं का प्रैक्टिकल विश्लेषण</p>
+<p>पिछले कुछ दिनों से सोशल मीडिया और कुछ न्यूज चैनलों पर एक ही शोर मचा हुआ है—</p>
+<blockquote>"राजेश एक्सपोर्ट्स से LIC डूब गई!", "पॉलिसीधारकों का पैसा चला गया!"</blockquote>
+<img src="rajesh-exports-poster.png" alt="Rajesh Exports Case Analysis">
+<p>SEBI ने राजेश एक्सपोर्ट्स की 15.15 लाख करोड़ की नकली आय का खुलासा करने के बाद, लोगों ने तुरंत LIC को अभियुक्त की कुर्सी पर बैठा दिया।</p>
+<p>लेकिन ठंडे दिमाग से सोचें तो सोशल मीडिया का यह शोरगुल कितना अधूरे ज्ञान पर आधारित है, यह समझ आएगा।</p>
+<h3>मुख्य बातें:</h3>
+<p><strong>अफवा 15 लाख करोड़ की है, लेकिन LIC का नुकसान सिर्फ 300 करोड़ का है।</strong></p>
+<p>यह एक बहुत छोटी रकम है — LIC की कुल संपत्ति (57.30 लाख करोड़) का मात्र 0.05% से भी कम।</p>
+<p>इसलिए: <strong>आपकी LIC पॉलिसी पूरी तरह सुरक्षित है।</strong> अर्धूरी जानकारी के आधार पर फैलाई जा रही भीति में न पड़ें।</p>`
+    }
+  ],
+  en: [
+    {
+      id: 1,
+      title: "The Betrayal of 6 Million Agents: Corporate Greed & Government Inaction",
+      date: "15 June 2026",
+      excerpt: "Insurance companies are systematically exploiting 60 lakh agents. Why is the government silent? The shocking truth and the only way out.",
+      image: "insurance-agents-betrayal.png",
+      content: `<img src="insurance-agents-betrayal.png" alt="6 Million Insurance Agents Betrayal" style="width: 100%; border-radius: 8px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1);">
+
+<h2>The Betrayal of 6 Million Agents: Corporate Greed, Government Publicity, and the Way Forward</h2>
+<p style="color: #999; font-size: 14px;">📅 15 June 2026 · A critical analysis of the insurance agent crisis in India</p>
+
+<p>The recent dictatorial directive by ICICI Lombard to completely eliminate renewal commissions on health insurance policies with a Sum Insured of ₹10 lakhs or less is not an isolated corporate decision. It is part of a larger, deep-rooted conspiracy of <strong>corporate greed, facilitated by systemic government oversight and regulatory apathy</strong>. India's massive network of over <strong>60 lakh (6 million) insurance agents</strong> is being systematically exploited simply because they remain unorganized.</p>
+
+<blockquote style="margin: 24px 0;">
+<strong>⚠️ The Core Issue:</strong> Insurance agents are the backbone of India's insurance sector, yet they are treated as disposable labor. When corporate profits are threatened, they are the first targets for cost-cutting.
+</blockquote>
+
+<h3>The Root Cause: The 2025 GST Waiver Backlash</h3>
+
+<p>To understand why insurance giants like ICICI Lombard are suddenly behaving like economic predators, one must look back at the government's policy maneuvers in 2025.</p>
+
+<p>In a highly publicized move to gain political mileage, the government announced a massive GST waiver on insurance premiums for the general public. While this decision was wrapped in the flag of public welfare, it was executed with absolute disregard for the operational economics of the insurance sector.</p>
+
+<p><strong>The sudden elimination of GST plunged the insurance companies into a severe financial crunch</strong>, imposing an abrupt operational load of <strong>15% to 18% directly onto their balance sheets</strong>. The government was fully aware of the mathematical impact of this policy, but chose <strong>self-serving publicity over economic stability</strong>.</p>
+
+<blockquote style="background: rgba(240,48,48,0.1); border-left: 4px solid #f03030; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>The Calculation:</strong><br>
+Government makes a popular announcement (get votes) → Insurance companies absorb losses → Agents lose commissions (least organized, easiest target) → Executives keep bonuses → Problem solved (for the rich)
+</blockquote>
+
+<h3>Corporate Retaliation and the Onslaught on Commissions</h3>
+
+<p>Following the GST waiver shock, corporate insurance entities immediately began looking for ways to recoup their margins. They first launched a direct assault by <strong>levying a flat 18% GST on the hard-earned commissions of agents</strong>, effectively orchestrating <strong>an institutionalized robbery</strong> of the individuals who build their business.</p>
+
+<p>The latest mandate by ICICI Lombard—<strong>stopping renewal payouts on policies under ₹10 lakhs under the guise of "forced upselling"</strong>—is the second phase of this retaliation. Private insurers are desperately squeezing the bottom-tier stakeholders to shield their corporate bottom lines and protect executive bonuses.</p>
+
+<h3>Why Government & IRDAI Remain Silent</h3>
+
+<p>It is entirely naive to believe that the government and the <strong>Insurance Regulatory and Development Authority of India (IRDAI)</strong> are oblivious to these developments. A sector that employs over 60 lakh individuals is being pushed to the brink, and the authorities remain silent spectators.</p>
+
+<p>This silence stems from a simple, brutal calculation:</p>
+
+<ul style="margin: 16px 0; padding-left: 20px; color: #c0b9b0;">
+  <li>✗ Corporate lobbies are highly organized, well-funded, and deeply entrenched in policy-making circles</li>
+  <li>✗ Insurance agents are fragmented and scattered across geography</li>
+  <li>✗ This lack of centralized organization is weaponized by both corporations and regulators</li>
+  <li>✗ The result: agents are stripped of financial security with impunity</li>
+</ul>
+
+<h3>A Challenge to the Executive Suite</h3>
+
+<blockquote style="background: rgba(34,197,94,0.1); border-left: 4px solid #22c55e; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>Let the high-ranking corporate executives sitting in their air-conditioned boardrooms step down onto the unforgiving ground reality.</strong> Let them try to pitch and sell a basic ₹5 lakh policy to a middle-class family or a senior citizen facing steep premium loadings.
+
+These corporate rules are crafted by individuals completely detached from the grit required to establish a retail insurance book. No ancestral legacy or regulatory framework gives them the right to unilaterally alter the rules of survival for millions of workers.
+</blockquote>
+
+<h3>The Way Forward: Bypass IRDAI, Move the Supreme Court</h3>
+
+<p><strong>Wasting time sending appeals to company management or expecting relief from the IRDAI is a futile exercise.</strong> History proves that regulatory bodies often mirror the interests of major corporate conglomerates rather than the working-class workforce.</p>
+
+<p>If the 60 lakh agents of India want to bring these arrogant corporate giants back to reality, they must <strong>bypass the corporate red tape entirely</strong>. The only effective recourse is to:</p>
+
+<ol style="margin: 16px 0; padding-left: 20px; color: #c0b9b0;">
+  <li>Consolidate resources through a unified forum</li>
+  <li>File a comprehensive <strong>Writ Petition in the Supreme Court of India</strong></li>
+  <li>Ground the case on violation of fundamental livelihoods, breach of implied contracts, and arbitrary corporate exploitation</li>
+</ol>
+
+<blockquote style="background: rgba(59,130,246,0.1); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 4px; margin: 24px 0;">
+<strong>💡 Why Supreme Court?</strong> Only a judicial mandate from the highest court in the land will shatter corporate arrogance and restore justice to the backbone of India's insurance sector. The corporate and regulatory bodies will only understand the language of judicial authority.
+</blockquote>
+
+<h3>The Broader Message</h3>
+
+<p>This crisis is not just about insurance agents. It represents a broader systemic failure where:</p>
+
+<ul style="margin: 16px 0; padding-left: 20px; color: #c0b9b0;">
+  <li>✗ Government makes populist policies without considering collateral damage</li>
+  <li>✗ Corporations exploit loopholes to protect executive interests</li>
+  <li>✗ Regulators become complicit through inaction</li>
+  <li>✗ Unorganized workers bear the entire cost of corporate and political miscalculations</li>
+</ul>
+
+<p><strong>The time for polite requests is over. The time for legal action is now.</strong></p>
+
+<p>60 lakh agents. One united voice. The Supreme Court. This is the only path to justice.</p>`
+    },
+    {
+      id: 2,
+      title: "Rajesh Exports Case: Is LIC a 'Magician' or 'God'?",
+      date: "09 June 2026",
+      excerpt: "Practical analysis of social media rumors! Did LIC really go bankrupt? The shocking truth inside.",
+      image: "rajesh-exports-poster.png",
+      content: `<h2>Rajesh Exports Case: Is LIC a 'Magician' or 'God'?</h2>
+<p style="color: #999; font-size: 14px;">Practical analysis of social media rumors about LIC's financial stability</p>
+<img src="rajesh-exports-poster.png" alt="Rajesh Exports Case Analysis">
+<p>For the past few days, social media and some news channels have been filled with one narrative—</p>
+<blockquote>"LIC went bankrupt because of Rajesh Exports!", "Policyholders' money is gone!"</blockquote>
+<p>After SEBI exposed Rajesh Exports' fake revenue of ₹15.15 lakh crore, people immediately put LIC in the dock.</p>
+<p>But if you think rationally, you'll realize how much of this social media noise is based on incomplete information and sensationalism.</p>
+<h3>Key Points:</h3>
+<p><strong>The rumor talks about ₹15.15 lakh crore, but LIC's actual loss is only ₹300 crore.</strong></p>
+<p>This is a very small amount — less than 0.05% of LIC's total assets (₹57.30 lakh crore).</p>
+<p>Therefore: <strong>Your LIC policy is completely safe.</strong> Don't believe panic spread on incomplete information.</p>`
+    }
+  ]
+};
+
+let currentLang = 'mr';
+
+function toggleMenu() {
+  document.getElementById('menuOverlay').classList.toggle('open');
+}
+
+function closeMenu() {
+  document.getElementById('menuOverlay').classList.remove('open');
+}
+
+function closeMenuOutside(e) {
+  if (e.target === document.getElementById('menuOverlay')) closeMenu();
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  
+  // Update language buttons
+  ['mr', 'hi', 'en'].forEach(l => {
+    document.getElementById('lb-' + l).classList.toggle('active', l === lang);
+  });
+  
+  // Update i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang] && T[lang][key]) {
+      el.textContent = T[lang][key];
+    }
+  });
+  
+  // Update news grid
+  renderNews();
+  
+  // Update HTML lang
+  document.documentElement.lang = lang === 'en' ? 'en' : lang === 'hi' ? 'hi' : 'mr';
+}
+
+function renderNews() {
+  const articles = newsArticles[currentLang] || newsArticles['mr'];
+  const grid = document.getElementById('newsGrid');
+  grid.innerHTML = '';
+  
+  articles.forEach((article, index) => {
+    const card = document.createElement('div');
+    card.className = `news-card ${index === 0 ? 'featured' : ''}`;
+    
+    card.innerHTML = `
+      <img src="${article.image}" alt="${article.title}" class="news-image" onerror="this.style.display='none'">
+      <div class="news-content">
+        <div class="news-date">${article.date}</div>
+        <h3 class="news-heading">${article.title}</h3>
+        <p class="news-excerpt">${article.excerpt}</p>
+        <a href="#" class="read-more">पूर्ण वाचा →</a>
+      </div>
+    `;
+    
+    card.onclick = (e) => {
+      e.preventDefault();
+      openArticle(article);
+    };
+    
+    grid.appendChild(card);
+  });
+}
+
+function openArticle(article) {
+  const content = document.getElementById('articleContent');
+  content.innerHTML = article.content;
+  document.getElementById('articleModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeArticle() {
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeArticleOutside(e) {
+  if (e.target === document.getElementById('articleModal')) closeArticle();
+}
+
+// Keyboard escape to close modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeArticle();
+});
+
+// Initial render
+renderNews();
+</script>
+</body>
+</html>
