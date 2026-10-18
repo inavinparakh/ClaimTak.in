@@ -297,16 +297,19 @@ nav {
   background: linear-gradient(135deg, rgba(240,48,48,0.15) 0%, rgba(240,48,48,0.08) 100%);
 }
 
+/* NM-IMG-FIX */
 .news-image {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
   display: block;
-  background: rgba(255,255,255,0.02);
+  background: #000;
 }
 
 .news-card.featured .news-image {
-  height: 320px;
+  height: auto;
+  max-height: 560px;
 }
 
 .news-content {
