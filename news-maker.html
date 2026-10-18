@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ClaimTak न्यूज मेकर</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif+Devanagari:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14213D; --navy-2:#22335a; --brass:#B08D57; --brass-soft:#efe6d4;
+  --paper:#f6f3ec; --card:#ffffff; --ink:#1b2236; --muted:#6b7385; --line:#ddd6c6;
+  --ok:#1f7a4d; --warn:#b3261e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
+body{overflow-x:hidden;max-width:100vw}
+input,textarea,select,button{max-width:100%;min-width:0}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.6;font-size:16px;padding-bottom:60px}
+header{background:var(--navy);color:#fff;padding:22px 18px 18px;border-bottom:4px solid var(--brass)}
+header h1{font-family:'Noto Serif Devanagari',Georgia,serif;font-size:24px;line-height:1.3;font-weight:700}
+header p{color:#c9d0e0;font-size:14px;margin-top:4px}
+main{max-width:720px;margin:0 auto;padding:18px 14px}
+section.step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+section.step > h2{font-family:'Noto Serif Devanagari',Georgia,serif;font-size:18px;color:var(--navy);margin-bottom:10px}
+.status{font-size:14px;padding:10px 12px;border-radius:8px;background:var(--brass-soft);color:#5a4524}
+.status.ok{background:#e4f3ea;color:var(--ok)}
+.status.bad{background:#fbe7e5;color:var(--warn)}
+.linkbtn{background:none;border:none;color:var(--navy);text-decoration:underline;font:inherit;font-size:14px;cursor:pointer;padding:6px 0}
+label.lbl{display:block;font-weight:700;font-size:14px;margin:14px 0 6px;color:var(--navy)}
+input[type=text],input[type=date],textarea{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.2)}
+textarea{min-height:240px;resize:vertical;line-height:1.7}
+.hint{font-size:13px;color:var(--muted);margin-top:6px}
+.tabs{display:flex;border:1.5px solid var(--navy);border-radius:10px;overflow:hidden;margin-bottom:4px}
+.tab{flex:1;padding:11px 6px;background:#fff;border:none;font:inherit;font-weight:700;color:var(--navy);cursor:pointer;border-right:1px solid var(--navy)}
+.tab:last-child{border-right:none}
+.tab.active{background:var(--navy);color:#fff}
+.tab .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#cfc7b4;margin-left:6px;vertical-align:middle}
+.tab.done .dot{background:#3ba56e}
+.tab.active.done .dot{background:#7fe0a8}
+.photo{display:block;border:2px dashed var(--brass);border-radius:10px;padding:14px;text-align:center;cursor:pointer;background:#fbf8f1;color:var(--navy);font-weight:500}
+.photo input{display:none}
+.photo img{display:block;max-width:100%;max-height:260px;margin:10px auto 0;border-radius:6px}
+.photo small{display:block;color:var(--muted);font-weight:400;margin-top:6px}
+.help{background:#f2f4f9;border-radius:8px;padding:10px 12px;font-size:13px;color:#39435c;margin-top:8px}
+.help code{background:#fff;border:1px solid #d7dcea;border-radius:4px;padding:0 5px;font-size:12.5px}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font:inherit;font-weight:700;font-size:16px;cursor:pointer;background:var(--navy);color:#fff}
+.btn:hover{background:var(--navy-2)}
+.btn.brass{background:var(--brass);color:#fff}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row > *{flex:1 1 140px}
+.err{color:var(--warn);font-size:14px;margin-top:10px;white-space:pre-line}
+#result{display:none}
+.pub{border:2px solid var(--brass);border-radius:10px;padding:14px;background:#fbf8f1;margin-bottom:6px}
+.pub h3{font-family:'Noto Serif Devanagari',Georgia,serif;font-size:17px;color:var(--navy);margin-bottom:8px}
+.pub details{margin:10px 0;font-size:14px}
+.pub summary{cursor:pointer;color:var(--navy);font-weight:700}
+.pub ol{padding-left:20px;margin-top:6px}
+.pub ol li{margin:6px 0}
+.pub input[type=password],.pub input.t{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;background:#fff;margin-top:6px}
+#pubMsg{margin-top:12px}
+#pubMsg a{color:inherit;font-weight:700}
+.pv{display:grid;gap:12px;margin:12px 0}
+.pv-card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.pv-card img{width:100%;max-height:200px;object-fit:cover;display:block}
+.pv-card div{padding:10px 12px}
+.pv-card b{display:block;font-size:12px;color:var(--brass);letter-spacing:.3px}
+.pv-card h3{font-size:16px;line-height:1.4;margin:2px 0 4px;color:var(--navy)}
+.pv-card p{font-size:13px;color:var(--muted)}
+ol.how{padding-left:20px;margin-top:6px}
+ol.how li{margin:8px 0}
+.links{display:grid;gap:8px;margin-top:10px}
+.links button{text-align:left;background:#fbf8f1;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;font-size:13px;color:var(--navy);cursor:pointer;word-break:break-all}
+</style>
+</head>
+<body>
+<header>
+  <h1>ClaimTak न्यूज मेकर</h1>
+  <p>तीन भाषा, तीन फोटो, एकच क्लिक — ताजी बातमी तयार</p>
+</header>
+
+<main>
+  <!-- ONE-TIME SETUP -->
+  <section class="step" id="setup">
+    <h2>एकदाच: GitHub टोकन</h2>
+    <div class="status" id="tokStatus">टोकन अजून सेव्ह नाही.</div>
+    <label class="lbl" for="tokIn">GitHub टोकन येथे पेस्ट करा</label>
+    <input type="password" id="tokIn" placeholder="github_pat_…" autocomplete="off" style="width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;background:#fff">
+    <input type="hidden" id="repoIn" value="inavinparakh/ClaimTak.in">
+    <div class="row" style="margin-top:12px">
+      <button class="btn brass" id="tokSave" type="button">टोकन सेव्ह करा</button>
+      <button class="btn ghost" id="tokClear" type="button">टोकन पुसा</button>
+    </div>
+    <div class="hint">टोकन फक्त याच फोनच्या ब्राउझरमध्ये सेव्ह राहते. पुन्हा टाकावे लागत नाही.</div>
+  </section>
+
+  <!-- STEP 1 -->
+  <section class="step">
+    <h2>१. वेबसाईटची blogs.html फाईल</h2>
+    <div id="srcStatus" class="status">blogs.html शोधत आहे…</div>
+    <div id="srcPick" style="display:none;margin-top:10px">
+      <label class="photo">blogs.html फाईल निवडा
+        <input type="file" id="srcFile" accept=".html,text/html">
+      </label>
+    </div>
+    <button class="linkbtn" id="srcOther" style="display:none" type="button">दुसरी फाईल निवडा</button>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step">
+    <h2>२. बातमी भरा</h2>
+    <div class="tabs" id="tabs"></div>
+    <div id="panel"></div>
+    <label class="lbl" for="dateIn">तारीख (आजची आपोआप)</label>
+    <input type="date" id="dateIn">
+    <div class="hint" id="datePv"></div>
+    <div class="hint">खाली दिसणारी ओळ सर्व भाषांत तीच राहील: <b>नविन पारख, ClaimTak पुणे</b></div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step">
+    <h2>३. तयार करा</h2>
+    <button class="btn brass" id="buildBtn" type="button">बातमी तयार करा</button>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="step" id="result">
+    <h2>तयार! आता हे अपलोड करा</h2>
+    <div class="pv" id="pv"></div>
+    <div class="row">
+      <button class="btn" id="dlHtml" type="button">blogs.html डाउनलोड</button>
+      <button class="btn ghost" id="dlImgs" type="button">तिन्ही फोटो डाउनलोड</button>
+    </div>
+    <div class="row" id="imgBtns" style="margin-top:10px"></div>
+
+    <div class="pub">
+      <h3>एका क्लिकवर थेट पब्लिश</h3>
+      <button class="btn brass" id="pubBtn" type="button">पब्लिश करा</button>
+      <div class="status" id="pubMsg" style="display:none"></div>
+    </div>
+
+    <label class="lbl">किंवा हाताने अपलोड करायचे असेल तर</label>
+    <div class="hint">वरील फाईल डाउनलोड करून हे करा:</div>
+    <label class="lbl">GitHub वर कसे टाकायचे</label>
+    <ol class="how">
+      <li>github.com/inavinparakh/ClaimTak.in उघडा → <b>Add file → Upload files</b></li>
+      <li>डाउनलोड झालेली <b>blogs.html</b> आणि <b>३ फोटो</b> टाका (मुख्य फोल्डरमध्ये; जुनी blogs.html बदलली जाईल)</li>
+      <li><b>Commit changes</b> दाबा. १–२ मिनिटांत claimtak.in वर बातमी दिसेल.</li>
+    </ol>
+
+    <label class="lbl">शेअर लिंक (कॉपी करण्यासाठी दाबा)</label>
+    <div class="links" id="links"></div>
+  </section>
+</main>
+
+<script>
+/*LOGIC-START*/
+const LANGS = ['mr','hi','en'];
+const LANG_NAME = {mr:'मराठी', hi:'हिन्दी', en:'English'};
+const BYLINE = {mr:'नविन पारख, ClaimTak पुणे', hi:'नविन पारख, ClaimTak पुणे', en:'Navin Parakh, ClaimTak Pune'};
+const MONTHS = {
+  mr:['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'],
+  hi:['जनवरी','फ़रवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'],
+  en:['January','February','March','April','May','June','July','August','September','October','November','December']
+};
+const DEV = '०१२३४५६७८९';
+
+function fmtDate(lang, y, m, d){
+  let day = String(d).padStart(2,'0');
+  let year = String(y);
+  if(lang !== 'en'){
+    day = day.replace(/\d/g, c => DEV[+c]);
+    year = year.replace(/\d/g, c => DEV[+c]);
+  }
+  return day + ' ' + MONTHS[lang][m-1] + ' ' + year;
+}
+
+const escH = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inline = s => escH(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+const QUOTE_STYLE = 'background:rgba(201,149,42,0.1);border-left:4px solid #C9952A;padding:16px;border-radius:4px;margin:16px 0;';
+
+function cleanTitle(t){
+  return escH(t.replace(/\s+/g,' ').trim().replace(/"/g,'\u201D'));
+}
+
+function bodyToHtml(txt){
+  const blocks = txt.replace(/\r/g,'').trim().split(/\n\s*\n/);
+  return blocks.map(b => {
+    b = b.trim();
+    if(!b) return '';
+    if(/^##\s+/.test(b)){
+      const lines = b.split('\n');
+      const first = lines.shift().replace(/^##\s+/,'');
+      let h = '<h3>' + inline(first) + '</h3>';
+      const rest = lines.join('\n').trim();
+      if(rest) h += '\n<p>' + inline(rest).replace(/\n/g,'<br>\n') + '</p>';
+      return h;
+    }
+    if(/^>\s?/.test(b)){
+      const t = b.split('\n').map(l => l.replace(/^>\s?/,'')).join('\n');
+      return '<blockquote style="' + QUOTE_STYLE + '">' + inline(t).replace(/\n/g,'<br>\n') + '</blockquote>';
+    }
+    return '<p>' + inline(b).replace(/\n/g,'<br>\n') + '</p>';
+  }).filter(Boolean).join('\n\n');
+}
+
+function makeExcerpt(txt){
+  const blocks = txt.replace(/\r/g,'').trim().split(/\n\s*\n/).map(b => b.trim()).filter(b => b && !/^##\s+/.test(b));
+  let plain = (blocks[0] || '').replace(/^>\s?/gm,'').replace(/\*\*/g,'').replace(/\s+/g,' ').trim();
+  if(plain.length > 170){
+    plain = plain.slice(0,170);
+    const sp = plain.lastIndexOf(' ');
+    if(sp > 100) plain = plain.slice(0,sp);
+    plain += '…';
+  }
+  return escH(plain);
+}
+
+const escTpl = s => s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$\{/g,'\\${');
+
+function articleCode(a){
+  const content =
+    '<h2>' + a.title + '</h2>\n' +
+    '<p style="color: #999; font-size: 14px;">📅 ' + a.date + ' · ' + a.byline + '</p>\n\n' +
+    '<img src="' + a.image + '" alt="' + a.title + '">\n\n' +
+    a.bodyHtml;
+  return '    {\n' +
+    '      id: ' + a.id + ',\n' +
+    '      slug: ' + JSON.stringify(a.slug) + ',\n' +
+    '      title: ' + JSON.stringify(a.title) + ',\n' +
+    '      date: ' + JSON.stringify(a.date) + ',\n' +
+    '      excerpt: ' + JSON.stringify(a.excerpt) + ',\n' +
+    '      image: ' + JSON.stringify(a.image) + ',\n' +
+    '      content: `' + escTpl(content) + '`\n' +
+    '    }';
+}
+
+function listSpots(src){
+  const base = src.indexOf('const newsArticles');
+  if(base < 0) throw new Error('blogs.html मध्ये newsArticles सापडले नाही.');
+  const tail = src.slice(base);
+  return LANGS.map(l => {
+    const m = new RegExp('\\n[ \\t]*' + l + ':\\s*\\[').exec(tail);
+    if(!m) throw new Error(LANG_NAME[l] + ' ची बातम्यांची यादी सापडली नाही.');
+    return {l, pos: base + m.index + m[0].length};
+  });
+}
+
+function nextId(src){
+  const base = src.indexOf('const newsArticles');
+  let max = 0;
+  (src.slice(base).match(/\bid:\s*(\d+)/g) || []).forEach(s => { max = Math.max(max, parseInt(s.replace(/\D/g,''),10)); });
+  return max + 1;
+}
+
+function insertArticles(src, codes){
+  const spots = listSpots(src).sort((a,b) => b.pos - a.pos);
+  let out = src;
+  spots.forEach(s => {
+    out = out.slice(0,s.pos) + '\n' + codes[s.l] + ',' + out.slice(s.pos);
+  });
+  return out;
+}
+
+function firstTitle(src, lang){
+  const spot = listSpots(src).find(s => s.l === lang);
+  const m = /title:\s*"((?:[^"\\]|\\.)*)"/.exec(src.slice(spot.pos));
+  return m ? m[1] : '';
+}
+
+function autoSlug(enTitle, y, m, d){
+  const s = enTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40).replace(/-+$/,'');
+  return s || ('news-' + y + String(m).padStart(2,'0') + String(d).padStart(2,'0'));
+}
+/*LOGIC-END*/
+
+/* ---------- UI ---------- */
+const $ = id => document.getElementById(id);
+const state = { src:null, cur:'mr', slugTouched:false, built:null,
+  data:{ mr:{title:'',body:'',img:null}, hi:{title:'',body:'',img:null}, en:{title:'',body:'',img:null} } };
+
+const PH = {
+  mr:{t:'उदा. LIC ने जाहीर केला नवा बोनस', b:'पुणे: येथे बातमी सुरू करा…\n\n## उपशीर्षक\nपरिच्छेद येथे लिहा.\n\n> ठळक मुद्दे येथे\n\nशेवटी: WhatsApp +९१-९१५८८५८८८५'},
+  hi:{t:'उदा. LIC ने घोषित किया नया बोनस', b:'पुणे: यहाँ खबर शुरू करें…\n\n## उपशीर्षक\nअनुच्छेद यहाँ लिखें।\n\n> मुख्य बिंदु यहाँ'},
+  en:{t:'e.g. LIC announces new bonus', b:'Pune: Start the story here…\n\n## Subheading\nWrite the paragraph here.\n\n> Key points here'}
+};
+
+function persist(){
+  try{
+    const copy = {};
+    LANGS.forEach(l => copy[l] = {title:state.data[l].title, body:state.data[l].body});
+    localStorage.setItem('claimtakNewsDraft', JSON.stringify(copy));
+  }catch(e){}
+}
+function restore(){
+  try{
+    const raw = localStorage.getItem('claimtakNewsDraft');
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    LANGS.forEach(l => { if(d[l]){ state.data[l].title = d[l].title || ''; state.data[l].body = d[l].body || ''; } });
+  }catch(e){}
+}
+
+function isDone(l){ const x = state.data[l]; return !!(x.title.trim() && x.body.trim() && x.img); }
+
+function renderTabs(){
+  $('tabs').innerHTML = '';
+  LANGS.forEach(l => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab' + (l === state.cur ? ' active' : '') + (isDone(l) ? ' done' : '');
+    b.innerHTML = LANG_NAME[l] + '<span class="dot"></span>';
+    b.onclick = () => { state.cur = l; renderTabs(); renderPanel(); };
+    $('tabs').appendChild(b);
+  });
+}
+
+function renderPanel(){
+  const l = state.cur, x = state.data[l];
+  $('panel').innerHTML =
+    '<label class="lbl" for="tIn">मथळा (' + LANG_NAME[l] + ')</label>' +
+    '<input type="text" id="tIn" placeholder="' + PH[l].t + '" value="">' +
+    '<label class="lbl">फोटो (' + LANG_NAME[l] + ')</label>' +
+    '<label class="photo"><span id="phLabel">' + (x.img ? 'फोटो बदला' : 'फोटो निवडा') + '</span>' +
+    '<input type="file" id="pIn" accept="image/*">' +
+    '<img id="pPv" alt="" style="display:' + (x.img ? 'block' : 'none') + '">' +
+    '<small id="pInfo">' + (x.img ? x.img.info : 'फोन गॅलरी किंवा कॅमेरा') + '</small></label>' +
+    '<label class="lbl" for="bIn">संपूर्ण लेख (' + LANG_NAME[l] + ')</label>' +
+    '<textarea id="bIn" placeholder=""></textarea>' +
+    '<div class="help">रिकामी ओळ = नवा परिच्छेद · <code>## उपशीर्षक</code> · <code>&gt; ठळक बॉक्स</code> · <code>**ठळक शब्द**</code></div>';
+  $('tIn').value = x.title;
+  $('bIn').value = x.body;
+  $('bIn').placeholder = PH[l].b;
+  if(x.img) $('pPv').src = x.img.url;
+  $('tIn').oninput = e => {
+    x.title = e.target.value;
+    if(l === 'en' && !state.slugTouched) syncSlug();
+    persist(); renderTabs();
+  };
+  $('bIn').oninput = e => { x.body = e.target.value; persist(); renderTabs(); };
+  $('pIn').onchange = async e => {
+    const f = e.target.files[0];
+    if(!f) return;
+    $('pInfo').textContent = 'फोटो तयार होत आहे…';
+    try{
+      const r = await compressImage(f);
+      if(x.img) URL.revokeObjectURL(x.img.url);
+      x.img = r;
+      $('pPv').src = r.url; $('pPv').style.display = 'block';
+      $('pInfo').textContent = r.info;
+      $('phLabel').textContent = 'फोटो बदला';
+      renderTabs();
+    }catch(err){
+      $('pInfo').textContent = 'हा फोटो उघडता आला नाही. दुसरा निवडा.';
+    }
+  };
+}
+
+async function compressImage(file){
+  const MAXW = 1600;
+  let bmp;
+  try{ bmp = await createImageBitmap(file, {imageOrientation:'from-image'}); }
+  catch(e){
+    bmp = await new Promise((res, rej) => {
+      const im = new Image(); const u = URL.createObjectURL(file);
+      im.onload = () => { res(im); }; im.onerror = rej; im.src = u;
+    });
+  }
+  const w0 = bmp.width || bmp.naturalWidth, h0 = bmp.height || bmp.naturalHeight;
+  const sc = Math.min(1, MAXW / w0);
+  const w = Math.round(w0 * sc), h = Math.round(h0 * sc);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,w,h);
+  ctx.drawImage(bmp, 0, 0, w, h);
+  const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.88));
+  const kb = Math.round(blob.size / 1024);
+  return {blob, url:URL.createObjectURL(blob), info: w + '×' + h + ' px · ' + kb + ' KB (वेबसाठी छोटा केला)'};
+}
+
+function todayParts(){
+  const v = $('dateIn').value;
+  const [y,m,d] = v.split('-').map(Number);
+  return {y,m,d};
+}
+function renderDatePv(){
+  const {y,m,d} = todayParts();
+  if(!y){ $('datePv').textContent = ''; return; }
+  $('datePv').textContent = LANGS.map(l => fmtDate(l,y,m,d)).join('  ·  ');
+}
+function syncSlug(){
+  const {y,m,d} = todayParts();
+  state.slug = autoSlug(state.data.en.title, y, m, d);
+}
+
+async function loadSrc(){
+  try{
+    const r = await fetch('blogs.html', {cache:'no-store'});
+    if(!r.ok) throw 0;
+    setSrc(await r.text(), 'वेबसाईटवरून आपोआप मिळाली');
+  }catch(e){
+    $('srcStatus').className = 'status';
+    $('srcStatus').textContent = 'blogs.html आपोआप मिळाली नाही. खाली फाईल निवडा (ZIP मधील किंवा GitHub वरील सध्याची).';
+    $('srcPick').style.display = 'block';
+  }
+}
+function setSrc(text, how){
+  try{
+    listSpots(text);
+    state.src = text;
+    $('srcStatus').className = 'status ok';
+    $('srcStatus').textContent = '✓ blogs.html तयार (' + how + '). सर्वात वरची बातमी: ' + firstTitle(text,'mr');
+    $('srcPick').style.display = 'none';
+    $('srcOther').style.display = 'inline-block';
+  }catch(e){
+    state.src = null;
+    $('srcStatus').className = 'status bad';
+    $('srcStatus').textContent = 'ही फाईल बरोबर वाटत नाही: ' + e.message;
+    $('srcPick').style.display = 'block';
+  }
+}
+$('srcFile').onchange = async e => { const f = e.target.files[0]; if(f) setSrc(await f.text(), 'तुम्ही निवडली'); };
+$('srcOther').onclick = () => { $('srcPick').style.display = 'block'; };
+
+function download(blob, name){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+$('buildBtn').onclick = () => {
+  const err = $('err'); err.textContent = '';
+  const problems = [];
+  if(!state.src) problems.push('• आधी blogs.html फाईल निवडा (पायरी १).');
+  LANGS.forEach(l => {
+    const x = state.data[l], miss = [];
+    if(!x.title.trim()) miss.push('मथळा');
+    if(!x.img) miss.push('फोटो');
+    if(!x.body.trim()) miss.push('लेख');
+    if(miss.length) problems.push('• ' + LANG_NAME[l] + ': ' + miss.join(', ') + ' राहिले.');
+  });
+  if(problems.length){ err.textContent = problems.join('\n'); return; }
+
+  const {y,m,d} = todayParts();
+  if(!y){ err.textContent = '• तारीख निवडा.'; return; }
+  let slug = (state.slug || autoSlug(state.data.en.title, y, m, d));
+  slug = slug.replace(/[^a-z0-9-]/g,'') || autoSlug('', y, m, d);
+  let uniq = slug, n = 2;
+  while(state.src.includes('slug: "' + uniq + '"')) uniq = slug + '-' + (n++);
+  slug = uniq;
+
+  const id = nextId(state.src);
+  const codes = {}, files = {}, cards = {};
+  LANGS.forEach(l => {
+    const x = state.data[l];
+    const image = 'news-' + slug + '-' + l + '.jpg';
+    const a = { id, slug, title:cleanTitle(x.title), date:fmtDate(l,y,m,d), byline:BYLINE[l],
+      excerpt:makeExcerpt(x.body), image, bodyHtml:bodyToHtml(x.body) };
+    codes[l] = articleCode(a);
+    files[l] = {name:image, blob:x.img.blob};
+    cards[l] = a;
+  });
+  let out;
+  try{ out = insertArticles(state.src, codes); }
+  catch(e){ err.textContent = '• ' + e.message; return; }
+
+  state.built = {out, files, slug, cards, id};
+  showResult();
+};
+
+function showResult(){
+  const b = state.built;
+  $('pv').innerHTML = '';
+  LANGS.forEach(l => {
+    const c = b.cards[l];
+    const el = document.createElement('div'); el.className = 'pv-card';
+    el.innerHTML = '<img alt="" src="' + URL.createObjectURL(b.files[l].blob) + '"><div><b>' + LANG_NAME[l] + ' · ' + c.date + '</b><h3>' + c.title + '</h3><p>' + c.excerpt + '</p></div>';
+    $('pv').appendChild(el);
+  });
+  $('imgBtns').innerHTML = '';
+  LANGS.forEach(l => {
+    const bt = document.createElement('button');
+    bt.type = 'button'; bt.className = 'btn ghost';
+    bt.textContent = LANG_NAME[l] + ' फोटो';
+    bt.onclick = () => download(b.files[l].blob, b.files[l].name);
+    $('imgBtns').appendChild(bt);
+  });
+  $('links').innerHTML = '';
+  LANGS.forEach(l => {
+    const url = 'https://claimtak.in/blogs.html?lang=' + l + '#' + b.slug;
+    const bt = document.createElement('button');
+    bt.type = 'button'; bt.textContent = LANG_NAME[l] + ': ' + url;
+    bt.onclick = async () => { try{ await navigator.clipboard.writeText(url); bt.textContent = '✓ कॉपी झाले'; setTimeout(() => bt.textContent = LANG_NAME[l] + ': ' + url, 1500); }catch(e){} };
+    $('links').appendChild(bt);
+  });
+  $('result').style.display = 'block';
+  $('result').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+$('dlHtml').onclick = () => download(new Blob([state.built.out], {type:'text/html;charset=utf-8'}), 'blogs.html');
+$('dlImgs').onclick = () => {
+  LANGS.forEach((l, i) => setTimeout(() => download(state.built.files[l].blob, state.built.files[l].name), i * 700));
+};
+
+/* ---------- GitHub publish ---------- */
+const TOKEN_KEY = 'claimtakGhToken', REPO_KEY = 'claimtakGhRepo';
+function pubMsg(cls, html){
+  const el = $('pubMsg'); el.style.display = 'block';
+  el.className = 'status' + (cls ? ' ' + cls : ''); el.innerHTML = html;
+}
+function blobToB64(blob){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(String(r.result).split(',')[1]);
+    r.onerror = rej; r.readAsDataURL(blob);
+  });
+}
+async function gh(repo, token, path, opt){
+  opt = opt || {};
+  const r = await fetch('https://api.github.com/repos/' + repo + path, {
+    method: opt.method || 'GET',
+    headers: Object.assign({
+      'Authorization': 'Bearer ' + token,
+      'Accept': opt.accept || 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    }, opt.body ? {'Content-Type':'application/json'} : {}),
+    body: opt.body ? JSON.stringify(opt.body) : undefined,
+    cache: 'no-store'
+  });
+  if(!r.ok){
+    const e = new Error('HTTP ' + r.status); e.status = r.status;
+    try{ e.detail = (await r.json()).message; }catch(_){}
+    throw e;
+  }
+  return opt.text ? r.text() : r.json();
+}
+function ghError(e){
+  if(e.status === 401) return 'टोकन चुकीचे किंवा संपलेले आहे. नवे टोकन बनवा.';
+  if(e.status === 403) return 'टोकनला परवानगी नाही. Contents: Read and write द्या आणि फक्त ClaimTak.in repository निवडा.';
+  if(e.status === 404) return 'Repository सापडली नाही किंवा टोकनला तिचा अॅक्सेस नाही. नाव तपासा: ' + ($('repoIn').value.trim());
+  if(e.status === 409 || e.status === 422) return 'GitHub ने बदल नाकारला (' + (e.detail || e.status) + '). पुन्हा प्रयत्न करा.';
+  return 'काहीतरी चुकले: ' + (e.detail || e.message) + '. इंटरनेट तपासा आणि पुन्हा प्रयत्न करा.';
+}
+
+async function publishToGithub(){
+  const b = state.built;
+  if(!b) return;
+  const repo = $('repoIn').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\/+$/,'');
+  const token = $('tokIn').value.trim();
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)){ pubMsg('bad','Repository असे लिहा: नाव/रेपो (उदा. inavinparakh/ClaimTak.in)'); return; }
+  if(!token){ pubMsg('bad','आधी पेजच्या सर्वात वरती GitHub टोकन सेव्ह करा.'); return; }
+  if(!confirm('ही बातमी claimtak.in वर थेट पब्लिश करायची?')) return;
+
+  try{ localStorage.setItem(TOKEN_KEY, token); localStorage.setItem(REPO_KEY, repo); }catch(_){}
+  $('pubBtn').disabled = true;
+  try{
+    pubMsg('', 'GitHub शी जोडत आहे…');
+    const info = await gh(repo, token, '');
+    const branch = info.default_branch;
+    const ref = await gh(repo, token, '/git/ref/heads/' + branch);
+    const headSha = ref.object.sha;
+    const head = await gh(repo, token, '/git/commits/' + headSha);
+
+    pubMsg('', 'सध्याची blogs.html तपासत आहे…');
+    const latest = await gh(repo, token, '/contents/blogs.html?ref=' + encodeURIComponent(branch),
+      {accept:'application/vnd.github.raw+json', text:true});
+    listSpots(latest);
+    if(latest.includes('slug: "' + b.slug + '"')){
+      throw Object.assign(new Error('dup'), {status:0, detail:'ही बातमी (' + b.slug + ') आधीच पब्लिश झालेली दिसते. बदल केला असल्यास पेज रिफ्रेश करून नव्याने तयार करा.'});
+    }
+    let out;
+    if(latest === state.src){ out = b.out; }
+    else{
+      const id = nextId(latest), codes = {};
+      LANGS.forEach(l => { codes[l] = articleCode(Object.assign({}, b.cards[l], {id})); });
+      out = insertArticles(latest, codes);
+    }
+
+    pubMsg('', 'फोटो आणि बातमी अपलोड करत आहे…');
+    const tree = [];
+    const htmlBlob = await gh(repo, token, '/git/blobs', {method:'POST', body:{content:out, encoding:'utf-8'}});
+    tree.push({path:'blogs.html', mode:'100644', type:'blob', sha:htmlBlob.sha});
+    for(const l of LANGS){
+      const f = b.files[l];
+      const bl = await gh(repo, token, '/git/blobs', {method:'POST', body:{content: await blobToB64(f.blob), encoding:'base64'}});
+      tree.push({path:f.name, mode:'100644', type:'blob', sha:bl.sha});
+    }
+    const newTree = await gh(repo, token, '/git/trees', {method:'POST', body:{base_tree:head.tree.sha, tree}});
+    const commit = await gh(repo, token, '/git/commits', {method:'POST', body:{
+      message:'News: ' + b.slug + ' (mr/hi/en)', tree:newTree.sha, parents:[headSha]}});
+    await gh(repo, token, '/git/refs/heads/' + branch, {method:'PATCH', body:{sha:commit.sha}});
+
+    state.src = out;
+    pubMsg('ok', '✓ पब्लिश झाले! १–२ मिनिटांत claimtak.in/blogs.html वर दिसेल. <a href="' + info.html_url + '/commit/' + commit.sha + '" target="_blank" rel="noopener">GitHub वर तपासा</a>');
+  }catch(e){
+    pubMsg('bad', e.status === 0 ? e.detail : ghError(e));
+  }finally{
+    $('pubBtn').disabled = false;
+  }
+}
+$('pubBtn').onclick = publishToGithub;
+function tokState(){
+  const has = !!$('tokIn').value.trim();
+  $('tokStatus').className = 'status' + (has ? ' ok' : '');
+  $('tokStatus').textContent = has ? '✓ टोकन सेव्ह आहे. आता बातमी भरून पब्लिश करता येईल.' : 'टोकन अजून सेव्ह नाही.';
+}
+$('tokSave').onclick = () => {
+  const tk = $('tokIn').value.trim();
+  if(!tk){ tokState(); return; }
+  try{ localStorage.setItem(TOKEN_KEY, tk); localStorage.setItem(REPO_KEY, $('repoIn').value); }catch(_){}
+  tokState();
+};
+$('tokClear').onclick = () => {
+  try{ localStorage.removeItem(TOKEN_KEY); }catch(_){}
+  $('tokIn').value = '';
+  tokState();
+};
+(function restoreToken(){
+  try{
+    const tk = localStorage.getItem(TOKEN_KEY), rp = localStorage.getItem(REPO_KEY);
+    if(tk) $('tokIn').value = tk;
+    if(rp) $('repoIn').value = rp;
+  }catch(_){}
+  tokState();
+})();
+
+/* init */
+(function init(){
+  const t = new Date();
+  $('dateIn').value = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
+  $('dateIn').oninput = () => { renderDatePv(); if(!state.slugTouched) syncSlug(); };
+  restore(); syncSlug(); renderDatePv(); renderTabs(); renderPanel(); loadSrc();
+})();
+</script>
+</body>
+</html>
