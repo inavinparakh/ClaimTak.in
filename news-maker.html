@@ -83,6 +83,20 @@ ol.how li{margin:8px 0}
 </header>
 
 <main>
+  <!-- ONE-TIME SETUP -->
+  <section class="step" id="setup">
+    <h2>एकदाच: GitHub टोकन</h2>
+    <div class="status" id="tokStatus">टोकन अजून सेव्ह नाही.</div>
+    <label class="lbl" for="tokIn">GitHub टोकन येथे पेस्ट करा</label>
+    <input type="password" id="tokIn" placeholder="github_pat_…" autocomplete="off" style="width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;background:#fff">
+    <input type="hidden" id="repoIn" value="inavinparakh/ClaimTak.in">
+    <div class="row" style="margin-top:12px">
+      <button class="btn brass" id="tokSave" type="button">टोकन सेव्ह करा</button>
+      <button class="btn ghost" id="tokClear" type="button">टोकन पुसा</button>
+    </div>
+    <div class="hint">टोकन फक्त याच फोनच्या ब्राउझरमध्ये सेव्ह राहते. पुन्हा टाकावे लागत नाही.</div>
+  </section>
+
   <!-- STEP 1 -->
   <section class="step">
     <h2>१. वेबसाईटची blogs.html फाईल</h2>
@@ -123,25 +137,8 @@ ol.how li{margin:8px 0}
     <div class="row" id="imgBtns" style="margin-top:10px"></div>
 
     <div class="pub">
-      <h3>एका क्लिकवर थेट पब्लिश (GitHub)</h3>
-      <details id="tokHelp">
-        <summary>पहिल्यांदा: GitHub टोकन कसे बनवायचे</summary>
-        <ol>
-          <li>GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token</li>
-          <li><b>Repository access:</b> फक्त ClaimTak.in निवडा</li>
-          <li><b>Permissions → Contents: Read and write</b></li>
-          <li>Generate करून टोकन कॉपी करा आणि खाली टाका. ते फक्त या फोनमध्ये/ब्राउझरमध्ये सेव्ह राहते.</li>
-        </ol>
-      </details>
-      <label class="lbl" for="repoIn" style="margin-top:6px">Repository</label>
-      <input type="text" class="t" id="repoIn" value="inavinparakh/ClaimTak.in" autocapitalize="off" autocomplete="off">
-      <label class="lbl" for="tokIn">GitHub टोकन</label>
-      <input type="password" id="tokIn" placeholder="github_pat_…" autocomplete="off">
-      <div class="hint">टोकन कोणालाही शेअर करू नका. गरज संपल्यावर GitHub वरून रद्द करता येते.</div>
-      <div class="row" style="margin-top:12px">
-        <button class="btn brass" id="pubBtn" type="button">पब्लिश करा</button>
-        <button class="btn ghost" id="tokClear" type="button">टोकन पुसा</button>
-      </div>
+      <h3>एका क्लिकवर थेट पब्लिश</h3>
+      <button class="btn brass" id="pubBtn" type="button">पब्लिश करा</button>
       <div class="status" id="pubMsg" style="display:none"></div>
     </div>
 
@@ -555,7 +552,7 @@ async function publishToGithub(){
   const repo = $('repoIn').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\/+$/,'');
   const token = $('tokIn').value.trim();
   if(!/^[\w.-]+\/[\w.-]+$/.test(repo)){ pubMsg('bad','Repository असे लिहा: नाव/रेपो (उदा. inavinparakh/ClaimTak.in)'); return; }
-  if(!token){ pubMsg('bad','आधी GitHub टोकन टाका. वर "पहिल्यांदा" मध्ये पायऱ्या आहेत.'); return; }
+  if(!token){ pubMsg('bad','आधी पेजच्या सर्वात वरती GitHub टोकन सेव्ह करा.'); return; }
   if(!confirm('ही बातमी claimtak.in वर थेट पब्लिश करायची?')) return;
 
   try{ localStorage.setItem(TOKEN_KEY, token); localStorage.setItem(REPO_KEY, repo); }catch(_){}
@@ -606,18 +603,29 @@ async function publishToGithub(){
   }
 }
 $('pubBtn').onclick = publishToGithub;
+function tokState(){
+  const has = !!$('tokIn').value.trim();
+  $('tokStatus').className = 'status' + (has ? ' ok' : '');
+  $('tokStatus').textContent = has ? '✓ टोकन सेव्ह आहे. आता बातमी भरून पब्लिश करता येईल.' : 'टोकन अजून सेव्ह नाही.';
+}
+$('tokSave').onclick = () => {
+  const tk = $('tokIn').value.trim();
+  if(!tk){ tokState(); return; }
+  try{ localStorage.setItem(TOKEN_KEY, tk); localStorage.setItem(REPO_KEY, $('repoIn').value); }catch(_){}
+  tokState();
+};
 $('tokClear').onclick = () => {
   try{ localStorage.removeItem(TOKEN_KEY); }catch(_){}
   $('tokIn').value = '';
-  pubMsg('', 'टोकन या डिव्हाइसवरून पुसले.');
+  tokState();
 };
 (function restoreToken(){
   try{
     const tk = localStorage.getItem(TOKEN_KEY), rp = localStorage.getItem(REPO_KEY);
     if(tk) $('tokIn').value = tk;
     if(rp) $('repoIn').value = rp;
-    if(tk) $('tokHelp').removeAttribute('open');
   }catch(_){}
+  tokState();
 })();
 
 /* init */
